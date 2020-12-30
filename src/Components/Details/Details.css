@@ -1,0 +1,30 @@
+.details {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding-top: 20px;
+}
+.movie-info img {
+    height: 30vh;
+}
+
+.detail-table {
+    background-color: white;
+    margin-top: 20px;
+    align-self: center;
+  }
+  
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }

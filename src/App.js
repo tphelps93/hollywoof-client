@@ -1,25 +1,31 @@
-import logo from './logo.svg';
+// Dependency Imports
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+// Component Imports
+import Header from './Components/Header/Header';
+import LandingPage from './Components/LandingPage/LandingPage';
+import Registration from './Components/Registration/Registration';
+import Login from './Components/Login/Login';
+import Main from './Components/Main/Main';
+import Details from './Components/Details/Details';
+import ReportForm from './Components/ReportForm/ReportForm';
+// CSS Imports
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+  render() {
+    return (
+      <Router>
+        <div className='App'>
+          <Header />
+          <Route exact path='/' component={LandingPage} />
+          <Route path='/main' component={Main} />
+          <Route path='/register' component={Registration} />
+          <Route path='/login' component={Login} />
+          <Route path='/details' component={Details} />
+          <Route path='/report' component={ReportForm} />
+        </div>
+      </Router>
+    );
+  }
 }
-
-export default App;

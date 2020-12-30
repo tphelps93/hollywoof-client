@@ -1,0 +1,17 @@
+.report {
+    display: flex;
+    flex-direction: column;
+}
+
+.report-form {
+    width: 30%;
+    align-self: center;
+}
+
+.report-form input[type='radio'] {
+    text-align: center;
+}
+
+.report-form label {
+    text-align: center;
+}

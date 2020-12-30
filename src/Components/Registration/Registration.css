@@ -1,0 +1,50 @@
+.register {
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.register h1 {
+    color: goldenrod;
+}
+
+.register-form {
+    background-color: white;
+    padding: 5px;
+    color: white;
+    align-self: center;
+    height: 30vh;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form input, form button {
+    align-self: center;
+    padding: 5px;
+    margin: 5px;
+}
+
+ul {
+    list-style-type: none;
+    text-align: left;
+}
+
+@media all and (min-width: 700px) {
+    .register {
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 50px;
+    }
+
+    .register-content {
+        width: 30%;
+    }
+
+    .register-form {
+        height: 40vh;
+    }
+}

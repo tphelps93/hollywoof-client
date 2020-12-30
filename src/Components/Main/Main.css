@@ -1,0 +1,41 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.search {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 40%;
+  align-self: center;
+}
+
+.search input,
+.search select,
+.search button {
+  margin: 5px;
+}
+
+.main-table {
+  background-color: white;
+  margin-top: 20px;
+  align-self: center;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}

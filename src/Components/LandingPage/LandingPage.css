@@ -1,0 +1,74 @@
+/* Mobile */
+
+.landing-content {
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.landing h1 {
+  color: goldenrod;
+}
+
+.landing h4 {
+  font-size: 25px;
+  margin-top: -5%;
+}
+
+.landing p {
+  width: 50%;
+  align-self: center;
+  line-height: 24px;
+  font-size: 23px;
+}
+
+.landing-btn {
+  text-align: center;
+}
+
+.landing-btn button {
+  padding: 2%;
+  border: none;
+  border-radius: 7%;
+  font-size: 23px;
+}
+
+.landing-posters {
+  display: none;
+}
+
+/* Desktop */
+
+@media all and (min-width: 768px) {
+  .landing {
+    display: flex;
+  }
+  .landing-content {
+    width: 40%;
+    text-align: center;
+  }
+
+  .landing p {
+    text-align: center;
+  }
+
+  .landing-btn {
+    width: 40%;
+    text-align: center;
+    align-self: center;
+  }
+
+  .landing-posters {
+    display: block;
+    width: 60%;
+    height: 50%;
+    text-align: center;
+  }
+
+  .landing-poster {
+    height: 40vh;
+    margin-top: 20%;
+    margin-left: 3%;
+  }
+}
