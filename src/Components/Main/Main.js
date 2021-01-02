@@ -1,21 +1,37 @@
 // Dependency Imports
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+// API Service Imports
+import { fetchOmdb } from '../../services/omdb-service';
 // CSS Imports
 import './Main.css';
 
 export default class Main extends Component {
+  handleSearch = e => {
+    e.preventDefault();
+    const { title } = e.target;
+    fetchOmdb(title.value)
+      .then(movie => {
+        console.log(movie);
+      });
+  };
   render() {
     return (
       <div className='main'>
-        <div className='search'>
+        <form onSubmit={e => this.handleSearch(e)} className='search'>
           <select>
             <option> Movies </option>
             <option> TV Shows </option>
           </select>
-          <input type='text' placeholder='title'></input>
+          <input
+            type='text'
+            name='title'
+            autoFocus='on'
+            placeholder='title'
+            value='Social'
+          ></input>
           <button type='submit'> Submit </button>
-        </div>
+        </form>
         <table width='90%' id='table' className='main-table'>
           <caption>Search Results</caption>
           <tr>
