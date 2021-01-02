@@ -1,6 +1,8 @@
 // Dependency Imports
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+// Context Imports
+import DataContext from './contexts/DataContext';
 // API Service Imports
 // import { fetchOmdb } from './services/omdb-service';
 // Component Imports
@@ -15,17 +17,41 @@ import ReportForm from './Components/ReportForm/ReportForm';
 import './App.css';
 
 export default class App extends Component {
+  state = {
+    search: '',
+    movies: [],
+  };
+
+  resetList = () => {
+    this.setState({
+      movies: []
+    });
+  };
+
+  addMovies = newMovies => {
+    this.setState({
+      movies: [...this.state.movies, newMovies],
+    });
+  };
   render() {
+    const value = {
+      search: this.state.search,
+      movies: this.state.movies,
+      addMovies: this.addMovies,
+      resetList: this.resetList,
+    };
     return (
       <Router>
         <div className='App'>
-          <Header />
-          <Route exact path='/' component={LandingPage} />
-          <Route path='/main' component={Main} />
-          <Route path='/register' component={Registration} />
-          <Route path='/login' component={Login} />
-          <Route path='/details' component={Details} />
-          <Route path='/report' component={ReportForm} />
+          <DataContext.Provider value={value}>
+            <Header />
+            <Route exact path='/' component={LandingPage} />
+            <Route path='/main' component={Main} />
+            <Route path='/register' component={Registration} />
+            <Route path='/login' component={Login} />
+            <Route path='/details' component={Details} />
+            <Route path='/report' component={ReportForm} />
+          </DataContext.Provider>
         </div>
       </Router>
     );
