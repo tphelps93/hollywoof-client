@@ -4,10 +4,10 @@ import React from 'react';
 const DataContext = React.createContext({
   search: '',
   movies: [],
-//   series: [],
+  shows: [],
   addMovies: () => {},
+  addShows: () => {},
   resetList: () => {},
-//   addSeries: () => {},
 });
 
 export default DataContext;

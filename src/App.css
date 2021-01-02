@@ -1,6 +1,8 @@
-html {
-  background-color: darkslategray;
-}
 .App {
-  /* text-align: center; */
+
+}
+
+.glass-layer {
+  background-color: rgba(0, 0, 0, 0.7);
+  height: 100vh;
 }

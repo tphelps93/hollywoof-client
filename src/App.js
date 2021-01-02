@@ -20,11 +20,19 @@ export default class App extends Component {
   state = {
     search: '',
     movies: [],
+    shows: [],
   };
 
   resetList = () => {
     this.setState({
-      movies: []
+      movies: [],
+      shows: [],
+    });
+  };
+
+  addShows = newShows => {
+    this.setState({
+      shows: [...this.state.shows, newShows],
     });
   };
 
@@ -37,21 +45,25 @@ export default class App extends Component {
     const value = {
       search: this.state.search,
       movies: this.state.movies,
+      shows: this.state.shows,
       addMovies: this.addMovies,
+      addShows: this.addShows,
       resetList: this.resetList,
     };
     return (
       <Router>
         <div className='App'>
-          <DataContext.Provider value={value}>
-            <Header />
-            <Route exact path='/' component={LandingPage} />
-            <Route path='/main' component={Main} />
-            <Route path='/register' component={Registration} />
-            <Route path='/login' component={Login} />
-            <Route path='/details' component={Details} />
-            <Route path='/report' component={ReportForm} />
-          </DataContext.Provider>
+          <div className='glass-layer'>
+            <DataContext.Provider value={value}>
+              <Header />
+              <Route exact path='/' component={LandingPage} />
+              <Route path='/main' component={Main} />
+              <Route path='/register' component={Registration} />
+              <Route path='/login' component={Login} />
+              <Route path='/details' component={Details} />
+              <Route path='/report' component={ReportForm} />
+            </DataContext.Provider>
+          </div>
         </div>
       </Router>
     );

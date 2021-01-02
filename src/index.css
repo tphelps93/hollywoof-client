@@ -5,6 +5,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: rgba(0, 0, 0, 90%);
+  background: url('https://4kwallpapers.com/images/wallpapers/black-dog-cute-puppies-black-background-dark-amoled-5k-1680x1050-1507.jpg') no-repeat left;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
 }
 
 code {

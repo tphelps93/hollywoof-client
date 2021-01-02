@@ -4,13 +4,17 @@ import { Link } from 'react-router-dom';
 // Context Imports
 import DataContext from '../../contexts/DataContext';
 // API Service Imports
-import { fetchOmdb } from '../../services/omdb-service';
+import {
+  fetchOmdb,
+  fetchShows,
+} from '../../services/omdb-service';
 // CSS Imports
 import './Main.css';
 
 export default class Main extends Component {
   state = {
     title: '',
+    filter: '',
     isSubmitting: false,
   };
   static contextType = DataContext;
@@ -27,37 +31,88 @@ export default class Main extends Component {
   handleSearch = e => {
     e.preventDefault();
     const { title } = e.target;
+    const { filter } = e.target;
     this.context.resetList();
-    fetchOmdb(title.value)
-      .then(movies => {
-        this.context.addMovies(movies.Search);
-      })
-      .then(() => {
-        this.setState({
-          isSubmitting: true,
+    if (filter.value.toLowerCase() === 'movies') {
+      fetchOmdb(title.value)
+        .then(movies => {
+          this.context.addMovies(movies.Search);
+        })
+
+        .then(() => {
+          this.setState({
+            isSubmitting: true,
+          });
+        })
+        .then(() => {
+          title.value = '';
         });
-      })
-      .then(() => {
-        title.value = '';
-      });
+    }
+
+    if (filter.value.toLowerCase() === 'tv shows') {
+      fetchShows(title.value)
+        .then(shows => {
+          this.context.addShows(shows.Search);
+        })
+        .then(() => {
+          this.setState({
+            isSubmitting: true,
+          });
+        })
+        .then(() => {
+          title.value = '';
+        });
+    }
   };
   render() {
     const movies = this.context.movies[0];
+    const shows = this.context.shows[0];
 
-    const renderList = () => {
-      movies.map(movie => {
-        return this.state.isSubmitting && <p> {movie.Title}</p>;
+    let renderList;
+    if (movies) {
+      renderList = movies.map(movie => {
+        return (
+          <tbody key={movie.imdbID} className='main-table'>
+            <tr>
+              <th>
+                <Link to='details'>{movie.Title}</Link>
+              </th>
+
+              <th> {movie.Year} </th>
+              <th> Yes </th>
+            </tr>
+          </tbody>
+        );
       });
-    };
+    }
 
-    // find a way to map over the 'Search' property of movies list
+    if (shows) {
+      renderList = shows.map(show => {
+        return (
+          <tbody key={show.imdbID} className='main-table'>
+          <tr>
+            <th>
+              <Link to='details'>{show.Title}</Link>
+            </th>
+
+            <th> {show.Year} </th>
+            <th> Yes </th>
+          </tr>
+        </tbody>
+        )
+      })
+    }
+
     return (
       <div className='main'>
-        <div>{renderList}</div>
         <form onSubmit={e => this.handleSearch(e)} className='search'>
-          <select>
-            <option> Movies </option>
-            <option> TV Shows </option>
+          <select
+            onChange={this.handleChange}
+            name='filter'
+            value={this.state.filter}
+          >
+            <option> movies </option>
+            <option> tv shows </option>
           </select>
           <input
             onChange={this.handleChange}
@@ -78,30 +133,7 @@ export default class Main extends Component {
               <th> Barks </th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <th>
-                <Link to='details'>
-                  The Lord of the Rings: Fellowship of the Ring
-                </Link>
-              </th>
-
-              <th> 2001 </th>
-              <th> Yes </th>
-            </tr>
-
-            <tr>
-              <th> Avengers: Endgame </th>
-              <th> 2019 </th>
-              <th> No </th>
-            </tr>
-
-            <tr>
-              <th> How the Grinch Stole Christmas </th>
-              <th> 2000 </th>
-              <th> Yes </th>
-            </tr>
-          </tbody>
+          {renderList}
           <tfoot></tfoot>
         </table>
       </div>
