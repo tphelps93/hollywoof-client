@@ -38,10 +38,9 @@ export default class Main extends Component {
         .then(movies => {
           this.context.addMovies(movies.Search);
           this.setState({
-            totalResults: movies.totalResults
-          })
+            totalResults: movies.totalResults,
+          });
         })
-
         .then(() => {
           this.setState({
             isSubmitting: true,
@@ -54,8 +53,8 @@ export default class Main extends Component {
         .then(shows => {
           this.context.addShows(shows.Search);
           this.setState({
-            totalResults: shows.totalResults
-          })
+            totalResults: shows.totalResults,
+          });
         })
         .then(() => {
           this.setState({
@@ -68,7 +67,6 @@ export default class Main extends Component {
     const handleDetail = this.context.handleDetail;
     const movies = this.context.movies[0];
     const shows = this.context.shows[0];
-    console.log(movies);
     let renderList;
     if (movies) {
       renderList = movies.map(movie => {
@@ -76,7 +74,12 @@ export default class Main extends Component {
           <tbody key={movie.imdbID} className='main-table'>
             <tr>
               <th onClick={() => handleDetail(movie.imdbID)}>
-                <Link style={{textDecoration: 'none', color: 'black' }} to={`/details/${movie.imdbID}`}>{movie.Title}</Link>
+                <Link
+                  style={{ textDecoration: 'none', color: 'black' }}
+                  to={`/details/${movie.imdbID}`}
+                >
+                  {movie.Title}
+                </Link>
               </th>
 
               <th> {movie.Year} </th>
@@ -93,7 +96,12 @@ export default class Main extends Component {
           <tbody key={show.imdbID} className='main-table'>
             <tr>
               <th>
-                <Link to={`/details/${show.imdbID}`}>{show.Title}</Link>
+                <Link
+                  style={{ textDecoration: 'none', color: 'black' }}
+                  to={`/details/${show.imdbID}`}
+                >
+                  {show.Title}
+                </Link>
               </th>
 
               <th> {show.Year} </th>
@@ -135,7 +143,9 @@ export default class Main extends Component {
         </form>
         <table width='90%' id='table' className='main-table'>
           <caption>Search Results</caption>
-          <caption> Number of Results: {this.state.totalResults}</caption>
+          {this.state.isSubmitting ? (
+            <caption> Number of Results: {this.state.totalResults}</caption>
+          ) : null}
           <thead>
             <tr>
               <th> Title </th>
