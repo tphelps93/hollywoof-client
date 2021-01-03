@@ -4,10 +4,7 @@ import { Link } from 'react-router-dom';
 // Context Imports
 import DataContext from '../../contexts/DataContext';
 // API Service Imports
-import {
-  fetchOmdb,
-  fetchShows,
-} from '../../services/omdb-service';
+import { fetchMovies, fetchShows } from '../../services/omdb-service';
 // CSS Imports
 import './Main.css';
 
@@ -15,6 +12,8 @@ export default class Main extends Component {
   state = {
     title: '',
     filter: '',
+    page: 1,
+    totalResults: 0,
     isSubmitting: false,
   };
   static contextType = DataContext;
@@ -30,52 +29,54 @@ export default class Main extends Component {
 
   handleSearch = e => {
     e.preventDefault();
+    const { page } = e.target;
     const { title } = e.target;
     const { filter } = e.target;
     this.context.resetList();
     if (filter.value.toLowerCase() === 'movies') {
-      fetchOmdb(title.value)
+      fetchMovies(title.value, page.value)
         .then(movies => {
           this.context.addMovies(movies.Search);
+          this.setState({
+            totalResults: movies.totalResults
+          })
         })
 
         .then(() => {
           this.setState({
             isSubmitting: true,
           });
-        })
-        .then(() => {
-          title.value = '';
         });
     }
 
     if (filter.value.toLowerCase() === 'tv shows') {
-      fetchShows(title.value)
+      fetchShows(title.value, page.value)
         .then(shows => {
           this.context.addShows(shows.Search);
+          this.setState({
+            totalResults: shows.totalResults
+          })
         })
         .then(() => {
           this.setState({
             isSubmitting: true,
           });
-        })
-        .then(() => {
-          title.value = '';
         });
     }
   };
   render() {
+    const handleDetail = this.context.handleDetail;
     const movies = this.context.movies[0];
     const shows = this.context.shows[0];
-
+    console.log(movies);
     let renderList;
     if (movies) {
       renderList = movies.map(movie => {
         return (
           <tbody key={movie.imdbID} className='main-table'>
             <tr>
-              <th>
-                <Link to='details'>{movie.Title}</Link>
+              <th onClick={() => handleDetail(movie.imdbID)}>
+                <Link style={{textDecoration: 'none', color: 'black' }} to={`/details/${movie.imdbID}`}>{movie.Title}</Link>
               </th>
 
               <th> {movie.Year} </th>
@@ -90,17 +91,17 @@ export default class Main extends Component {
       renderList = shows.map(show => {
         return (
           <tbody key={show.imdbID} className='main-table'>
-          <tr>
-            <th>
-              <Link to='details'>{show.Title}</Link>
-            </th>
+            <tr>
+              <th>
+                <Link to={`/details/${show.imdbID}`}>{show.Title}</Link>
+              </th>
 
-            <th> {show.Year} </th>
-            <th> Yes </th>
-          </tr>
-        </tbody>
-        )
-      })
+              <th> {show.Year} </th>
+              <th> Yes </th>
+            </tr>
+          </tbody>
+        );
+      });
     }
 
     return (
@@ -118,14 +119,23 @@ export default class Main extends Component {
             onChange={this.handleChange}
             type='text'
             name='title'
-            autoFocus='on'
             placeholder='title'
             value={this.state.title}
+          ></input>
+          <input
+            onChange={this.handleChange}
+            type='number'
+            name='page'
+            min='1'
+            max='10'
+            placeholder='page'
+            value={this.state.page}
           ></input>
           <button type='submit'> Submit </button>
         </form>
         <table width='90%' id='table' className='main-table'>
           <caption>Search Results</caption>
+          <caption> Number of Results: {this.state.totalResults}</caption>
           <thead>
             <tr>
               <th> Title </th>

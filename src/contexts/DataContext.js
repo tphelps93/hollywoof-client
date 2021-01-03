@@ -5,8 +5,10 @@ const DataContext = React.createContext({
   search: '',
   movies: [],
   shows: [],
+  detailMovie: '',
   addMovies: () => {},
   addShows: () => {},
+  handleDetail: () => {},
   resetList: () => {},
 });
 

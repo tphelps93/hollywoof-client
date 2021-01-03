@@ -4,8 +4,12 @@
     text-align: center;
     padding-top: 20px;
 }
+
+.movie-info {
+  color: white;
+}
 .movie-info img {
-    height: 30vh;
+    height: 40vh;
 }
 
 .detail-table {

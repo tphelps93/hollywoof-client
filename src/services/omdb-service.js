@@ -2,8 +2,8 @@ import config from '../config';
 
 /* FETCH */
 
-export const fetchOmdb = userInput => {
-  return fetch(`${config.OMDB_API_URL}${userInput}&type=movie`).then(res => {
+export const fetchMovies = (userInput, page) => {
+  return fetch(`${config.OMDB_API_URL}${userInput}&type=movie&page=${page}`).then(res => {
     if (!res.ok) {
       return Promise.reject(res.statusText);
     }
@@ -11,8 +11,8 @@ export const fetchOmdb = userInput => {
   });
 };
 
-export const fetchShows = userInput => {
-  return fetch(`${config.OMDB_API_URL}${userInput}&type=series`).then(res => {
+export const fetchShows = (userInput, page) => {
+  return fetch(`${config.OMDB_API_URL}${userInput}&type=series&page=${page}`).then(res => {
     if (!res.ok) {
       return Promise.reject(res.statusText);
     }

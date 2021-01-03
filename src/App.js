@@ -21,12 +21,12 @@ export default class App extends Component {
     search: '',
     movies: [],
     shows: [],
+    detailMovie: '',
   };
 
-  resetList = () => {
+  addMovies = newMovies => {
     this.setState({
-      movies: [],
-      shows: [],
+      movies: [...this.state.movies, newMovies],
     });
   };
 
@@ -36,9 +36,22 @@ export default class App extends Component {
     });
   };
 
-  addMovies = newMovies => {
+  getMovie = id => {
+    const movie = this.state.movies.find(film => film.imdbID === id);
+    return movie;
+  };
+  // figure out how to get the id of the listing that was clicked on and use it to get the detail page of that listing.
+  handleDetail = id => {
+    const movie = this.getMovie(id);
+    this.setState(() => {
+      return { detailMovie: movie };
+    });
+  };
+
+  resetList = () => {
     this.setState({
-      movies: [...this.state.movies, newMovies],
+      movies: [],
+      shows: [],
     });
   };
   render() {
@@ -46,8 +59,10 @@ export default class App extends Component {
       search: this.state.search,
       movies: this.state.movies,
       shows: this.state.shows,
+      detailMovie: this.state.detailMovie,
       addMovies: this.addMovies,
       addShows: this.addShows,
+      handleDetail: this.handleDetail,
       resetList: this.resetList,
     };
     return (
@@ -60,7 +75,7 @@ export default class App extends Component {
               <Route path='/main' component={Main} />
               <Route path='/register' component={Registration} />
               <Route path='/login' component={Login} />
-              <Route path='/details' component={Details} />
+              <Route path='/details/:imdbID' component={Details} />
               <Route path='/report' component={ReportForm} />
             </DataContext.Provider>
           </div>

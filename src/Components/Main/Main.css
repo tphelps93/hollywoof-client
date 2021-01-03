@@ -25,6 +25,10 @@
   align-self: center;
 }
 
+caption {
+  color: white;
+}
+
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
