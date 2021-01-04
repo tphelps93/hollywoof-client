@@ -67,6 +67,7 @@ export default class Main extends Component {
     const handleDetail = this.context.handleDetail;
     const movies = this.context.movies[0];
     const shows = this.context.shows[0];
+
     let renderList;
     if (movies) {
       renderList = movies.map(movie => {
