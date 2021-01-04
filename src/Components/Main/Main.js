@@ -64,7 +64,6 @@ export default class Main extends Component {
     }
   };
   render() {
-    const handleDetail = this.context.handleDetail;
     const movies = this.context.movies[0];
     const shows = this.context.shows[0];
 
@@ -74,7 +73,7 @@ export default class Main extends Component {
         return (
           <tbody key={movie.imdbID} className='main-table'>
             <tr>
-              <th onClick={() => handleDetail(movie.imdbID)}>
+              <th>
                 <Link
                   style={{ textDecoration: 'none', color: 'black' }}
                   to={`/details/${movie.imdbID}`}
@@ -85,6 +84,11 @@ export default class Main extends Component {
 
               <th> {movie.Year} </th>
               <th> Yes </th>
+              <th>
+                <Link to={`/tsform/${movie.imdbID}`}>
+                  <button> Report </button>
+                </Link>
+              </th>
             </tr>
           </tbody>
         );
@@ -107,6 +111,11 @@ export default class Main extends Component {
 
               <th> {show.Year} </th>
               <th> Yes </th>
+              <th>
+                <Link to={`/tsform/${show.imdbID}`}>
+                  <button> Report </button>
+                </Link>
+              </th>
             </tr>
           </tbody>
         );
@@ -152,6 +161,7 @@ export default class Main extends Component {
               <th> Title </th>
               <th> Release Date </th>
               <th> Barks </th>
+              <th> Report </th>
             </tr>
           </thead>
           {renderList}

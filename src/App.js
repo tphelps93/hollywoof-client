@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 // Context Imports
 import DataContext from './contexts/DataContext';
 // API Service Imports
-// import { fetchOmdb } from './services/omdb-service';
+import { fetchTimestamps } from './services/api-service';
+
 // Component Imports
 import Header from './Components/Header/Header';
 import LandingPage from './Components/LandingPage/LandingPage';
@@ -12,7 +13,7 @@ import Registration from './Components/Registration/Registration';
 import Login from './Components/Login/Login';
 import Main from './Components/Main/Main';
 import Details from './Components/Details/Details';
-import ReportForm from './Components/ReportForm/ReportForm';
+import TSForm from './Components/TSForm/TSForm';
 // CSS Imports
 import './App.css';
 
@@ -21,33 +22,50 @@ export default class App extends Component {
     search: '',
     movies: [],
     shows: [],
-    detailMovie: '',
+    timestamps: [],
     authToken: null,
+    error: null,
   };
 
+  componentDidMount() {
+    let promises = [fetchTimestamps()];
+    Promise.all(promises)
+      .then(values => {
+        this.setState({
+          timestamps: values[0],
+        });
+      })
+      .catch(error => {
+        this.setState({
+          error,
+        });
+      });
+  }
+
+  /* Add To State */
+
+  // Add To 'movies' Array
   addMovies = newMovies => {
     this.setState({
       movies: [...this.state.movies, newMovies],
     });
   };
 
+  // Add To 'shows' Array
   addShows = newShows => {
     this.setState({
       shows: [...this.state.shows, newShows],
     });
   };
 
-  getMovie = id => {
-    const movie = this.state.movies.find(film => film.imdbID === id);
-    return movie;
-  };
-
-  handleDetail = id => {
-    const movie = this.getMovie(id);
-    this.setState(() => {
-      return { detailMovie: movie };
+  // Add To 'timestamps' Array
+  addTimestamps = newTimestamp => {
+    this.setState({
+      timestamps: [...this.state.timestamps, newTimestamp],
     });
   };
+
+  /* Reset State */
 
   resetList = () => {
     this.setState({
@@ -57,6 +75,7 @@ export default class App extends Component {
   };
 
   /* Auth Token Functions */
+
   setAuthToken = authToken => {
     this.setState({
       authToken: authToken,
@@ -74,11 +93,11 @@ export default class App extends Component {
       search: this.state.search,
       movies: this.state.movies,
       shows: this.state.shows,
-      detailMovie: this.state.detailMovie,
+      timestamps: this.state.timestamps,
       authToken: this.state.authToken,
       addMovies: this.addMovies,
       addShows: this.addShows,
-      handleDetail: this.handleDetail,
+      addTimestamps: this.addTimestamps,
       resetList: this.resetList,
       setAuthToken: this.setAuthToken,
       clearAuthToken: this.clearAuthToken,
@@ -94,7 +113,7 @@ export default class App extends Component {
               <Route path='/register' component={Registration} />
               <Route path='/login' component={Login} />
               <Route path='/details/:imdbID' component={Details} />
-              <Route path='/report' component={ReportForm} />
+              <Route path='/tsform/:imdbID' component={TSForm} />
             </DataContext.Provider>
           </div>
         </div>

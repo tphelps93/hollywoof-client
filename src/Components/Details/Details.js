@@ -4,16 +4,34 @@ import { Link } from 'react-router-dom';
 // Context Imports
 import DataContext from '../../contexts/DataContext';
 // API Service Imports
-// import { fetchMovies, fetchShows } from '../../services/omdb-service';
 // CSS Imports
 import './Details.css';
 
 export default class Details extends Component {
+  state = { error: null };
   static contextType = DataContext;
 
   render() {
+    const timestamps = this.context.timestamps;
     const movies = this.context.movies[0];
     const shows = this.context.shows[0];
+
+    let renderTimestamps;
+    if (timestamps) {
+      renderTimestamps = timestamps
+        .filter(ts => {
+          return ts.media_id == this.props.match.params.imdbID;
+        })
+        .map(ts => {
+          return (
+            <tr key={ts.ts_id}>
+              <th> {ts.timestamp} </th>
+              <th> {ts.volume} </th>
+              <th>🐾 4 </th>
+            </tr>
+          );
+        });
+    }
 
     let renderDetails;
     if (movies) {
@@ -71,8 +89,8 @@ export default class Details extends Component {
         });
     }
     return (
-      <div className='details'>
-        {renderDetails}
+      <div className='details-page'>
+        <div className='details'>{renderDetails}</div>
 
         <table width='90%' id='table' className='detail-table'>
           <caption>Time Stamps</caption>
@@ -83,14 +101,7 @@ export default class Details extends Component {
               <th> Confirmed </th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <th> 34:25 </th>
-              <th>🔊 </th>
-              <th>🐾 4 </th>
-            </tr>
-          </tbody>
-          <tfoot></tfoot>
+          <tbody>{renderTimestamps}</tbody>
         </table>
       </div>
     );
