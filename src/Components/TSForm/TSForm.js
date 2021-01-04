@@ -1,28 +1,86 @@
 // Dependency Imports
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import * as HtmlDurationPicker from 'html-duration-picker';
+// API Service Imports
+import { postTimestamps } from '../../services/api-service';
 // CSS Imports
 import './TSForm.css';
 
 export default class TSForm extends Component {
-//   ngAfterViewInit() {
-//     HtmlDurationPicker.init();
-//   }
+  handleChange = event => {
+    const isCheckbox = event.target.type === 'checkbox';
+    this.setState({
+      [event.target.name]: isCheckbox
+        ? event.target.checked
+        : event.target.value,
+    });
+  };
+
+  combineTimestamps(hour, minute, second) {
+    const combined = `${hour}:${minute}:${second}`;
+    return combined.toString();
+  }
+
+  handleTSForm = e => {
+    e.preventDefault();
+    const { hour } = e.target;
+    const { minute } = e.target;
+    const { second } = e.target;
+
+    const { comment } = e.target;
+    const { volume } = e.target;
+
+    const timestamp = this.combineTimestamps(
+      hour.value,
+      minute.value,
+      second.value
+    );
+    postTimestamps(timestamp, volume.value, comment.value)
+      .then(() => {
+        timestamp = '';
+        comment.value = '';
+      })
+      .then(() => {
+        this.context.addTimestamps(timestamp, volume.value, comment.value);
+      })
+      .then(() => {
+        this.props.history.push('/main');
+      })
+      .catch(this.context.setError);
+  };
+
   render() {
     return (
       <div className='ts-form'>
-        <form>
-          {/* <input
-            type='text'
-            className='html-duration-picker'
-          ></input> */}
+        <form onSubmit={e => this.handleTSForm(e)}>
+          <input
+            type='number'
+            name='hour'
+            min='1'
+            max='12'
+            onChange={this.handleChange}
+          ></input>
+          <input
+            type='number'
+            name='minute'
+            min='1'
+            max='59'
+            onChange={this.handleChange}
+          ></input>
+          <input
+            type='number'
+            name='second'
+            min='1'
+            max='59'
+            onChange={this.handleChange}
+          ></input>
 
-          <input type='number' name='hh' min='1' max='12'></input>
-          <input type='number' name='mm' min='1' max='59'></input>
-          <input type='number' name='ss' min='1' max='59'></input>
-
-          <textarea></textarea>
+          <textarea name='comment'></textarea>
+          <select name='volume'>
+            <option> High </option>
+            <option> Medium </option>
+            <option> Low </option>
+          </select>
           <button> Submit </button>
         </form>
       </div>
