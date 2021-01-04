@@ -22,6 +22,7 @@ export default class App extends Component {
     movies: [],
     shows: [],
     detailMovie: '',
+    authToken: null,
   };
 
   addMovies = newMovies => {
@@ -40,7 +41,7 @@ export default class App extends Component {
     const movie = this.state.movies.find(film => film.imdbID === id);
     return movie;
   };
-  // figure out how to get the id of the listing that was clicked on and use it to get the detail page of that listing.
+
   handleDetail = id => {
     const movie = this.getMovie(id);
     this.setState(() => {
@@ -54,16 +55,33 @@ export default class App extends Component {
       shows: [],
     });
   };
+
+  /* Auth Token Functions */
+  setAuthToken = authToken => {
+    this.setState({
+      authToken: authToken,
+    });
+  };
+
+  clearAuthToken = () => {
+    this.setState({
+      authToken: null,
+    });
+  };
+
   render() {
     const value = {
       search: this.state.search,
       movies: this.state.movies,
       shows: this.state.shows,
       detailMovie: this.state.detailMovie,
+      authToken: this.state.authToken,
       addMovies: this.addMovies,
       addShows: this.addShows,
       handleDetail: this.handleDetail,
       resetList: this.resetList,
+      setAuthToken: this.setAuthToken,
+      clearAuthToken: this.clearAuthToken,
     };
     return (
       <Router>

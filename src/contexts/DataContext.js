@@ -6,10 +6,13 @@ const DataContext = React.createContext({
   movies: [],
   shows: [],
   detailMovie: '',
+  authToken: null,
   addMovies: () => {},
   addShows: () => {},
   handleDetail: () => {},
   resetList: () => {},
+  setAuthToken: () => {},
+  clearAuthToken: () => {},
 });
 
 export default DataContext;
