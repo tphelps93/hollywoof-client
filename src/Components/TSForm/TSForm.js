@@ -1,12 +1,15 @@
 // Dependency Imports
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import DataContext from '../../contexts/DataContext';
 // API Service Imports
 import { postTimestamps } from '../../services/api-service';
+import TokenService from '../../services/token-service';
 // CSS Imports
 import './TSForm.css';
 
 export default class TSForm extends Component {
+  static contextType = DataContext;
   handleChange = event => {
     const isCheckbox = event.target.type === 'checkbox';
     this.setState({
@@ -30,19 +33,27 @@ export default class TSForm extends Component {
     const { comment } = e.target;
     const { volume } = e.target;
 
+    const media_id = this.props.match.params.imdbID;
+    const userid = TokenService.jwtDecode(TokenService.getAuthToken()).payload
+      .user_id;
+
     const timestamp = this.combineTimestamps(
       hour.value,
       minute.value,
       second.value
     );
-    postTimestamps(timestamp, volume.value, comment.value)
+    postTimestamps(timestamp, comment.value, volume.value, media_id, userid)
+      .then(ts => {
+        this.context.addTimestamps(ts);
+      })
       .then(() => {
-        timestamp = '';
+        hour.value = '';
+        minute.value = '';
+        second.value = '';
         comment.value = '';
+        volume.value = '';
       })
-      .then(() => {
-        this.context.addTimestamps(timestamp, volume.value, comment.value);
-      })
+
       .then(() => {
         this.props.history.push('/main');
       })

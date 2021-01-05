@@ -1,7 +1,6 @@
 import config from '../config';
 import TokenService from '../services/token-service';
 
-
 /* FETCH */
 
 // Timestamps
@@ -17,10 +16,10 @@ export const fetchTimestamps = () => {
 /* POST */
 
 // Timestamps
-export const postTimestamps = (timestamp, comment, volume) => {
+export const postTimestamps = (timestamp, comment, volume, media_id, userid) => {
   return fetch(`${config.API_BASE_URL}/timestamps`, {
     method: 'POST',
-    header: {
+    headers: {
       'content-type': 'application/json',
       authorization: `bearer ${TokenService.getAuthToken()}`,
     },
@@ -28,14 +27,16 @@ export const postTimestamps = (timestamp, comment, volume) => {
       timestamp,
       comment,
       volume,
+      media_id,
+      userid,
     }),
   }).then(res => {
     if (!res.ok) {
       return Promise.reject(res.statusText);
     }
     return res.json();
-  })
-}
+  });
+};
 
 // Users
 export const postUser = (name, user_name, password) => {
