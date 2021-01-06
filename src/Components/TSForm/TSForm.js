@@ -93,6 +93,9 @@ export default class TSForm extends Component {
             <option> Low </option>
           </select>
           <button> Submit </button>
+          <Link to='/main'>
+            <button> Back </button>
+          </Link>
         </form>
       </div>
     );

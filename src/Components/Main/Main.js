@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import DataContext from '../../contexts/DataContext';
 // API Service Imports
 import { fetchMovies, fetchShows } from '../../services/omdb-service';
+import TokenService from '../../services/token-service';
 // CSS Imports
 import './Main.css';
 
@@ -84,11 +85,14 @@ export default class Main extends Component {
 
               <th> {movie.Year} </th>
               <th> Yes </th>
-              <th>
-                <Link to={`/tsform/${movie.imdbID}`}>
-                  <button> Report </button>
-                </Link>
-              </th>
+
+              {TokenService.getAuthToken() ? (
+                <th>
+                  <Link to={`/tsform/${movie.imdbID}`}>
+                    <button> Report </button>
+                  </Link>
+                </th>
+              ) : null}
             </tr>
           </tbody>
         );
@@ -111,11 +115,13 @@ export default class Main extends Component {
 
               <th> {show.Year} </th>
               <th> Yes </th>
-              <th>
-                <Link to={`/tsform/${show.imdbID}`}>
-                  <button> Report </button>
-                </Link>
-              </th>
+              {TokenService.getAuthToken() ? (
+                <th>
+                  <Link to={`/tsform/${show.imdbID}`}>
+                    <button> Report </button>
+                  </Link>
+                </th>
+              ) : null}
             </tr>
           </tbody>
         );
@@ -161,7 +167,7 @@ export default class Main extends Component {
               <th> Title </th>
               <th> Release Date </th>
               <th> Barks </th>
-              <th> Report </th>
+              {TokenService.getAuthToken() ? <th> Report </th> : null}
             </tr>
           </thead>
           {renderList}
