@@ -10,6 +10,7 @@ const DataContext = React.createContext({
   addMovies: () => {},
   addShows: () => {},
   addTimestamps: () => {},
+  iterateConfirmations: () => {},
   resetList: () => {},
   setAuthToken: () => {},
   clearAuthToken: () => {},

@@ -4,12 +4,18 @@ import { Link } from 'react-router-dom';
 // Context Imports
 import DataContext from '../../contexts/DataContext';
 // API Service Imports
+import { updateConfirmationCount } from '../../services/api-service';
 // CSS Imports
 import './Details.css';
 
 export default class Details extends Component {
   state = { error: null };
   static contextType = DataContext;
+
+  handleConfirmationClick = (ts_id, confirmations) => {
+    updateConfirmationCount(ts_id, confirmations);
+    this.context.iterateConfirmations(ts_id);
+  };
 
   render() {
     const timestamps = this.context.timestamps;
@@ -27,7 +33,16 @@ export default class Details extends Component {
             <tr key={ts.ts_id}>
               <th> {ts.timestamp} </th>
               <th> {ts.volume} </th>
-              <th>🐾 4 </th>
+              <th>
+                <button
+                  onClick={() =>
+                    this.handleConfirmationClick(ts.ts_id, ts.confirmations)
+                  }
+                >
+                  🐾
+                </button>{' '}
+                {ts.confirmations}
+              </th>
             </tr>
           );
         });

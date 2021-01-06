@@ -33,6 +33,8 @@ export default class TSForm extends Component {
     const { comment } = e.target;
     const { volume } = e.target;
 
+    const confirmations = 0;
+
     const media_id = this.props.match.params.imdbID;
     const userid = TokenService.jwtDecode(TokenService.getAuthToken()).payload
       .user_id;
@@ -42,7 +44,7 @@ export default class TSForm extends Component {
       minute.value,
       second.value
     );
-    postTimestamps(timestamp, comment.value, volume.value, media_id, userid)
+    postTimestamps(timestamp, comment.value, volume.value, confirmations, media_id, userid)
       .then(ts => {
         this.context.addTimestamps(ts);
       })

@@ -16,7 +16,14 @@ export const fetchTimestamps = () => {
 /* POST */
 
 // Timestamps
-export const postTimestamps = (timestamp, comment, volume, media_id, userid) => {
+export const postTimestamps = (
+  timestamp,
+  comment,
+  volume,
+  confirmations,
+  media_id,
+  userid
+) => {
   return fetch(`${config.API_BASE_URL}/timestamps`, {
     method: 'POST',
     headers: {
@@ -27,6 +34,7 @@ export const postTimestamps = (timestamp, comment, volume, media_id, userid) => 
       timestamp,
       comment,
       volume,
+      confirmations,
       media_id,
       userid,
     }),
@@ -61,5 +69,23 @@ export const postUser = (name, user_name, password) => {
 };
 
 /* UPDATE */
-
+export const updateConfirmationCount = (ts_id, confirmations) => {
+  return fetch(`${config.API_BASE_URL}/timestamps/${ts_id}`, {
+    method: 'PATCH',
+    headers: {
+      'content-type': 'application/json',
+      authorization: `bearer ${TokenService.getAuthToken()}`,
+    },
+    body: JSON.stringify({
+      ts_id,
+      confirmations,
+    }),
+  }).then(res => {
+    if (!res.ok) {
+      throw new Error(
+        `Something went wrong updating ${ts_id}, please try again later.`
+      );
+    }
+  });
+};
 /* DELETE */

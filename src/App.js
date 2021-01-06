@@ -65,6 +65,16 @@ export default class App extends Component {
     });
   };
 
+  /* Update State */
+
+  iterateConfirmations = id => {
+    this.setState({
+      timestamps: this.state.timestamps.map(timestamp => {
+        return timestamp.ts_id === id ? { ...timestamp, confirmations: timestamp.confirmations + 1 } : timestamp;
+      }),
+    });
+  };
+
   /* Reset State */
 
   resetList = () => {
@@ -98,6 +108,7 @@ export default class App extends Component {
       addMovies: this.addMovies,
       addShows: this.addShows,
       addTimestamps: this.addTimestamps,
+      iterateConfirmations: this.iterateConfirmations,
       resetList: this.resetList,
       setAuthToken: this.setAuthToken,
       clearAuthToken: this.clearAuthToken,
