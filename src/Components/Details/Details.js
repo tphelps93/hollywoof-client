@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import DataContext from '../../contexts/DataContext';
 // API Service Imports
 import { updateConfirmationCount } from '../../services/api-service';
+import TokenService from '../../services/token-service';
 // CSS Imports
 import './Details.css';
 
@@ -13,7 +14,9 @@ export default class Details extends Component {
   static contextType = DataContext;
 
   handleConfirmationClick = (ts_id, confirmations) => {
-    updateConfirmationCount(ts_id, confirmations);
+    const userid = TokenService.jwtDecode(TokenService.getAuthToken()).payload
+      .user_id;
+    updateConfirmationCount(ts_id, confirmations, userid);
     this.context.iterateConfirmations(ts_id);
   };
 

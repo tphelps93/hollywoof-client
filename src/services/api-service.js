@@ -69,7 +69,7 @@ export const postUser = (name, user_name, password) => {
 };
 
 /* UPDATE */
-export const updateConfirmationCount = (ts_id, confirmations) => {
+export const updateConfirmationCount = (ts_id, confirmations, userid) => {
   return fetch(`${config.API_BASE_URL}/timestamps/${ts_id}`, {
     method: 'PATCH',
     headers: {
@@ -79,6 +79,7 @@ export const updateConfirmationCount = (ts_id, confirmations) => {
     body: JSON.stringify({
       ts_id,
       confirmations,
+      userid,
     }),
   }).then(res => {
     if (!res.ok) {
