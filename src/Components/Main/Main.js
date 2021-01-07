@@ -44,9 +44,10 @@ export default class Main extends Component {
       fetchMovies(title.value, page.value)
         .then(movies => {
           this.context.addMovies(movies.Search);
-          this.setState({
-            totalResults: movies.totalResults,
-          });
+          this.context.updateMovieTotalResults(movies.totalResults)
+          // this.setState({
+          //   totalResults: movies.totalResults,
+          // });
         })
         .then(() => {
           this.setState({
@@ -166,18 +167,12 @@ export default class Main extends Component {
         </form>
         <table width='90%' id='table' className='main-table'>
           <caption>Search Results</caption>
-          {this.state.isSubmitting ? (
-            <caption> Number of Results: {this.state.totalResults}</caption>
-          ) : null}
+            <caption> Results: 10 of {this.context.totalResults}</caption>
           <thead>
             <tr>
               <th> Title </th>
               <th> Release Date </th>
               <th> Barks </th>
-              {/* 
-                  3. Filter the barks matching the media_id to the match.params.imdbID 
-                  4. Map over the filtered barks and print them out to the list
-              */}
               {TokenService.getAuthToken() ? <th> Report </th> : null}
             </tr>
           </thead>

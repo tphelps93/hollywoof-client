@@ -10,8 +10,23 @@ import TokenService from '../../services/token-service';
 import './Details.css';
 
 export default class Details extends Component {
-  state = { error: null };
+  state = { error: null, show: false };
   static contextType = DataContext;
+
+  showComment = e => {
+    console.log('clicked');
+  }
+
+  renderElement = () => {
+    const barks = this.context.barks;
+    let element = <p> Dog Barks: Not Reported </p>;
+    for (let i = 0; i < barks.length; i++) {
+      if (barks[i].media_id === this.props.match.params.imdbID) {
+        element = <p> Dog Barks: {barks[i].barks} </p>;
+      }
+    }
+    return element;
+  };
 
   handleConfirmationClick = (ts_id, confirmations) => {
     const userid = TokenService.jwtDecode(TokenService.getAuthToken()).payload
@@ -24,7 +39,6 @@ export default class Details extends Component {
     const timestamps = this.context.timestamps;
     const movies = this.context.movies[0];
     const shows = this.context.shows[0];
-    const barks = this.context.barks;
 
     let renderTimestamps;
     if (timestamps) {
@@ -34,20 +48,33 @@ export default class Details extends Component {
         })
         .map(ts => {
           return (
-            <tr key={ts.ts_id}>
-              <th> {ts.timestamp} </th>
-              <th> {ts.volume} </th>
-              <th>
-                <button
-                  onClick={() =>
-                    this.handleConfirmationClick(ts.ts_id, ts.confirmations)
-                  }
-                >
-                  🐾
-                </button>{' '}
-                {ts.confirmations}
-              </th>
-            </tr>
+            <tbody key={ts.ts_id}>
+              <tr>
+                <th> {ts.timestamp} </th>
+                <th> {ts.volume} </th>
+                <th>
+                  {TokenService.getAuthToken() ? (
+                    <button
+                      onClick={() =>
+                        this.handleConfirmationClick(ts.ts_id, ts.confirmations)
+                      }
+                    >
+                      🐾
+                    </button>
+                  ) : null}
+
+                  {ts.confirmations}
+                </th>
+              </tr>
+              <div name='comment' className='comment hidden'>
+                <h3> UserName </h3>
+                <h4>{ts.comment}</h4>
+                <div>
+                  <button> Like </button>
+                  <button> Dislike </button>
+                </div>
+              </div>
+            </tbody>
           );
         });
     }
@@ -72,14 +99,7 @@ export default class Details extends Component {
               )}
               <h3> {movie.Title} </h3>
               <p> Release Date: {movie.Year} </p>
-              {/* Find a way to set each listing with a default value of 'Not Reported' */}
-              {barks
-                .filter(b => {
-                  return b.media_id === this.props.match.params.imdbID;
-                })
-                .map(b => {
-                  return <p>Dog Barks: {b.barks}</p>;
-                })}
+              {this.renderElement()}
               <Link to='/main'>
                 <button> Back </button>
               </Link>
@@ -106,13 +126,7 @@ export default class Details extends Component {
               ></img>
               <h3> {show.Title} </h3>
               <p> Release Date: {show.Year} </p>
-              {barks
-                .filter(b => {
-                  return b.media_id === this.props.match.params.imdbID;
-                })
-                .map(b => {
-                  return <p>Dog Barks: {b.barks}</p>;
-                })}
+              {this.renderElement()}
               <Link to='/main'>
                 <button> Back </button>
               </Link>
@@ -124,7 +138,7 @@ export default class Details extends Component {
       <div className='details-page'>
         <div className='details'>{renderDetails}</div>
 
-        <table width='90%' id='table' className='detail-table'>
+        <table onClick={() => this.showComment()} width='90%' id='table' className='detail-table'>
           <caption>Time Stamps</caption>
           <thead>
             <tr>
@@ -133,7 +147,7 @@ export default class Details extends Component {
               <th> Confirmed </th>
             </tr>
           </thead>
-          <tbody>{renderTimestamps}</tbody>
+          {renderTimestamps}
         </table>
       </div>
     );

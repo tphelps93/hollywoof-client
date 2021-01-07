@@ -24,6 +24,7 @@ export default class App extends Component {
     shows: [],
     barks: [],
     timestamps: [],
+    totalResults: 0,
     authToken: null,
     error: null,
   };
@@ -34,7 +35,7 @@ export default class App extends Component {
       .then(values => {
         this.setState({
           timestamps: values[0],
-          barks: values[1]
+          barks: values[1],
         });
       })
       .catch(error => {
@@ -79,6 +80,18 @@ export default class App extends Component {
     });
   };
 
+  updateMovieTotalResults = totalResults => {
+    this.setState({
+      totalResults: this.state.movies, totalResults,
+    });
+  };
+
+  updateShowsTotalResults = totalResults => {
+    this.setState({
+      totalResults: this.state.shows.totalResults = totalResults,
+    });
+  };
+
   /* Reset State */
 
   resetList = () => {
@@ -108,12 +121,15 @@ export default class App extends Component {
       movies: this.state.movies,
       shows: this.state.shows,
       timestamps: this.state.timestamps,
+      totalResults: this.state.totalResults,
       barks: this.state.barks,
       authToken: this.state.authToken,
       addMovies: this.addMovies,
       addShows: this.addShows,
       addTimestamps: this.addTimestamps,
       iterateConfirmations: this.iterateConfirmations,
+      updateMovieTotalResults: this.updateMovieTotalResults,
+      updateShowsTotalResults: this.updateShowsTotalResults,
       resetList: this.resetList,
       setAuthToken: this.setAuthToken,
       clearAuthToken: this.clearAuthToken,

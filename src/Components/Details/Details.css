@@ -1,4 +1,4 @@
-.details {
+.details-page {
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -31,4 +31,13 @@
   
   tr:nth-child(even) {
     background-color: #dddddd;
+  }
+
+  .comment {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .hidden {
+    display: none;
   }
