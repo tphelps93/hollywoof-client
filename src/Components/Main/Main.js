@@ -9,6 +9,12 @@ import TokenService from '../../services/token-service';
 // CSS Imports
 import './Main.css';
 
+/* TODO 
+  Break into smaller components
+   1. Filter
+   2. Table
+    */
+
 export default class Main extends Component {
   state = {
     title: '',
@@ -67,6 +73,7 @@ export default class Main extends Component {
   render() {
     const movies = this.context.movies[0];
     const shows = this.context.shows[0];
+    const barks = this.context.barks;
 
     let renderList;
     if (movies) {
@@ -84,7 +91,7 @@ export default class Main extends Component {
               </th>
 
               <th> {movie.Year} </th>
-              <th> Yes </th>
+              <th> Yes</th>
 
               {TokenService.getAuthToken() ? (
                 <th>
@@ -98,7 +105,7 @@ export default class Main extends Component {
         );
       });
     }
-
+  
     if (shows) {
       renderList = shows.map(show => {
         return (
@@ -167,6 +174,10 @@ export default class Main extends Component {
               <th> Title </th>
               <th> Release Date </th>
               <th> Barks </th>
+              {/* 
+                  3. Filter the barks matching the media_id to the match.params.imdbID 
+                  4. Map over the filtered barks and print them out to the list
+              */}
               {TokenService.getAuthToken() ? <th> Report </th> : null}
             </tr>
           </thead>

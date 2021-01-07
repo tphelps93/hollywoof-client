@@ -24,6 +24,7 @@ export default class Details extends Component {
     const timestamps = this.context.timestamps;
     const movies = this.context.movies[0];
     const shows = this.context.shows[0];
+    const barks = this.context.barks;
 
     let renderTimestamps;
     if (timestamps) {
@@ -71,7 +72,14 @@ export default class Details extends Component {
               )}
               <h3> {movie.Title} </h3>
               <p> Release Date: {movie.Year} </p>
-              <p> Dog Barks: Yes </p>
+              {/* Find a way to set each listing with a default value of 'Not Reported' */}
+              {barks
+                .filter(b => {
+                  return b.media_id === this.props.match.params.imdbID;
+                })
+                .map(b => {
+                  return <p>Dog Barks: {b.barks}</p>;
+                })}
               <Link to='/main'>
                 <button> Back </button>
               </Link>
@@ -98,7 +106,13 @@ export default class Details extends Component {
               ></img>
               <h3> {show.Title} </h3>
               <p> Release Date: {show.Year} </p>
-              <p> Dog Barks: Yes </p>
+              {barks
+                .filter(b => {
+                  return b.media_id === this.props.match.params.imdbID;
+                })
+                .map(b => {
+                  return <p>Dog Barks: {b.barks}</p>;
+                })}
               <Link to='/main'>
                 <button> Back </button>
               </Link>

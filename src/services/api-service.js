@@ -13,6 +13,15 @@ export const fetchTimestamps = () => {
   });
 };
 
+export const fetchBarks = () => {
+  return fetch(`${config.API_BASE_URL}/barks`).then(res => {
+    if (!res.ok) {
+      return Promise.reject(res.statusText);
+    }
+    return res.json();
+  });
+};
+
 /* POST */
 
 // Timestamps

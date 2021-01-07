@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 // Context Imports
 import DataContext from './contexts/DataContext';
 // API Service Imports
-import { fetchTimestamps } from './services/api-service';
+import { fetchTimestamps, fetchBarks } from './services/api-service';
 
 // Component Imports
 import Header from './Components/Header/Header';
@@ -22,17 +22,19 @@ export default class App extends Component {
     search: '',
     movies: [],
     shows: [],
+    barks: [],
     timestamps: [],
     authToken: null,
     error: null,
   };
 
   componentDidMount() {
-    let promises = [fetchTimestamps()];
+    let promises = [fetchTimestamps(), fetchBarks()];
     Promise.all(promises)
       .then(values => {
         this.setState({
           timestamps: values[0],
+          barks: values[1]
         });
       })
       .catch(error => {
@@ -70,7 +72,9 @@ export default class App extends Component {
   iterateConfirmations = id => {
     this.setState({
       timestamps: this.state.timestamps.map(timestamp => {
-        return timestamp.ts_id === id ? { ...timestamp, confirmations: timestamp.confirmations + 1 } : timestamp;
+        return timestamp.ts_id === id
+          ? { ...timestamp, confirmations: timestamp.confirmations + 1 }
+          : timestamp;
       }),
     });
   };
@@ -104,6 +108,7 @@ export default class App extends Component {
       movies: this.state.movies,
       shows: this.state.shows,
       timestamps: this.state.timestamps,
+      barks: this.state.barks,
       authToken: this.state.authToken,
       addMovies: this.addMovies,
       addShows: this.addShows,

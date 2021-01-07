@@ -5,6 +5,7 @@ const DataContext = React.createContext({
   search: '',
   movies: [],
   shows: [],
+  barks: [],
   timestamps: [],
   authToken: null,
   addMovies: () => {},
