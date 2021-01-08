@@ -10,12 +10,26 @@ import TokenService from '../../services/token-service';
 import './Details.css';
 
 export default class Details extends Component {
-  state = { error: null, show: false };
+  state = { error: null, show: false, expanded: [] };
   static contextType = DataContext;
 
-  showComment = e => {
-    console.log('clicked');
-  }
+  // keep an array in state of which ones are expanded.
+  // When you click toggleComment it checks if that id is already in the expanded list. If yes, it removes it, if not it adds it.
+  // During map check if state.expanded includes ts_id
+  // add ts_id to toggleComment
+  // when calling it pass it the param
+  toggleComment = ts => {
+    console.log(ts);
+    const expanded = this.state.expanded;
+    expanded.filter(exp => {
+      if (exp.ts_id === ts.ts_id) {
+        return exp.push(ts);
+      } else if (exp.ts_id !== ts.ts_id) {
+        return expanded.filter(exp => exp.ts !== ts);
+      }
+    });
+    return expanded;    
+  };
 
   renderElement = () => {
     const barks = this.context.barks;
@@ -36,6 +50,7 @@ export default class Details extends Component {
   };
 
   render() {
+    console.log(this.state.expanded);
     const timestamps = this.context.timestamps;
     const movies = this.context.movies[0];
     const shows = this.context.shows[0];
@@ -48,8 +63,8 @@ export default class Details extends Component {
         })
         .map(ts => {
           return (
-            <tbody key={ts.ts_id}>
-              <tr>
+            <tbody onClick={() => this.toggleComment(ts)} key={ts.ts_id}>
+              <tr className='container'>
                 <th> {ts.timestamp} </th>
                 <th> {ts.volume} </th>
                 <th>
@@ -66,14 +81,18 @@ export default class Details extends Component {
                   {ts.confirmations}
                 </th>
               </tr>
-              <div name='comment' className='comment hidden'>
-                <h3> UserName </h3>
-                <h4>{ts.comment}</h4>
-                <div>
+              <tr name='comment' className='comment'>
+                <th>
+                  <h3> UserName </h3>
+                </th>
+                <th>
+                  <h4>{ts.comment}</h4>
+                </th>
+                <th>
                   <button> Like </button>
                   <button> Dislike </button>
-                </div>
-              </div>
+                </th>
+              </tr>
             </tbody>
           );
         });
@@ -138,7 +157,7 @@ export default class Details extends Component {
       <div className='details-page'>
         <div className='details'>{renderDetails}</div>
 
-        <table onClick={() => this.showComment()} width='90%' id='table' className='detail-table'>
+        <table width='90%' id='table' className='detail-table'>
           <caption>Time Stamps</caption>
           <thead>
             <tr>
