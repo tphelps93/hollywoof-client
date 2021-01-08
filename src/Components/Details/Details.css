@@ -1,43 +1,46 @@
 .details-page {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding-top: 20px;
 }
 
 .movie-info {
   color: white;
 }
 .movie-info img {
-    height: 40vh;
+  height: 40vh;
 }
 
 .detail-table {
-    background-color: white;
-    margin-top: 20px;
-    align-self: center;
-  }
-  
-  table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-  }
-  
-  td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #dddddd;
-  }
+  background-color: white;
+  margin-top: 20px;
+  align-self: center;
+}
 
-  .comment {
-    display: flex;
-    justify-content: space-between;
-  }
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+}
 
-  .hidden {
-    display: none;
-  }
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.comment {
+  display: flex;
+  justify-content: space-between;
+}
+
+.hidden {
+  display: none;
+}
+
+

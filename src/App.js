@@ -80,15 +80,36 @@ export default class App extends Component {
     });
   };
 
+  iterateLikes = id => {
+    this.setState({
+      timestamps: this.state.timestamps.map(timestamp => {
+        return timestamp.ts_id === id
+          ? { ...timestamp, likes: timestamp.likes + 1 }
+          : timestamp;
+      }),
+    });
+  };
+
+  iterateDislikes = id => {
+    this.setState({
+      timestamps: this.state.timestamps.map(timestamp => {
+        return timestamp.ts_id === id
+          ? { ...timestamp, dislikes: timestamp.dislikes + 1 }
+          : timestamp;
+      }),
+    });
+  };
+
   updateMovieTotalResults = totalResults => {
     this.setState({
-      totalResults: this.state.movies, totalResults,
+      totalResults: this.state.movies,
+      totalResults,
     });
   };
 
   updateShowsTotalResults = totalResults => {
     this.setState({
-      totalResults: this.state.shows.totalResults = totalResults,
+      totalResults: (this.state.shows.totalResults = totalResults),
     });
   };
 
@@ -128,6 +149,8 @@ export default class App extends Component {
       addShows: this.addShows,
       addTimestamps: this.addTimestamps,
       iterateConfirmations: this.iterateConfirmations,
+      iterateLikes: this.iterateLikes,
+      iterateDislikes: this.iterateDislikes,
       updateMovieTotalResults: this.updateMovieTotalResults,
       updateShowsTotalResults: this.updateShowsTotalResults,
       resetList: this.resetList,

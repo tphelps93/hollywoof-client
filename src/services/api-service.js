@@ -13,8 +13,19 @@ export const fetchTimestamps = () => {
   });
 };
 
+// Barks
 export const fetchBarks = () => {
   return fetch(`${config.API_BASE_URL}/barks`).then(res => {
+    if (!res.ok) {
+      return Promise.reject(res.statusText);
+    }
+    return res.json();
+  });
+};
+
+// Users
+export const fetchUsers = () => {
+  return fetch(`${config.API_BASE_URL}/users`).then(res => {
     if (!res.ok) {
       return Promise.reject(res.statusText);
     }
@@ -98,4 +109,61 @@ export const updateConfirmationCount = (ts_id, confirmations, userid) => {
     }
   });
 };
+
+export const updateLikeCount = (ts_id, likes, userid) => {
+  return fetch(`${config.API_BASE_URL}/timestamps/${ts_id}`, {
+    method: 'PATCH',
+    headers: {
+      'content-type': 'application/json',
+      authorization: `bearer ${TokenService.getAuthToken()}`,
+    },
+    body: JSON.stringify({
+      ts_id,
+      likes,
+      userid,
+    }),
+  }).then(res => {
+    if (!res.ok) {
+      throw new Error(
+        `Something went wrong updating ${ts_id}, please try again later.`
+      );
+    }
+  });
+};
+
+export const updateDislikeLikeCount = (ts_id, dislikes, userid) => {
+  return fetch(`${config.API_BASE_URL}/timestamps/${ts_id}`, {
+    method: 'PATCH',
+    headers: {
+      'content-type': 'application/json',
+      authorization: `bearer ${TokenService.getAuthToken()}`,
+    },
+    body: JSON.stringify({
+      ts_id,
+      dislikes,
+      userid,
+    }),
+  }).then(res => {
+    if (!res.ok) {
+      throw new Error(
+        `Something went wrong updating ${ts_id}, please try again later.`
+      );
+    }
+  });
+};
 /* DELETE */
+
+export const deleteTimestamp = ts_id => {
+  return fetch(`${config.API_BASE_URL}/timestamps/${ts_id}`, {
+    method: 'DELETE',
+    headers: {
+      'content-type': 'application/json',
+    },
+  }).then(res => {
+    if (!res.ok) {
+      throw new Error(
+        `Something went wrong deleting ${ts_id}, please try again later.`
+      );
+    }
+  });
+};

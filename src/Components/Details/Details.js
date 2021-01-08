@@ -4,31 +4,71 @@ import { Link } from 'react-router-dom';
 // Context Imports
 import DataContext from '../../contexts/DataContext';
 // API Service Imports
-import { updateConfirmationCount } from '../../services/api-service';
+import {
+  fetchUsers,
+  updateConfirmationCount,
+} from '../../services/api-service';
 import TokenService from '../../services/token-service';
 // CSS Imports
 import './Details.css';
 
 export default class Details extends Component {
-  state = { error: null, show: false, expanded: [] };
+  state = { error: null, expanded: [], username: '' };
   static contextType = DataContext;
 
-  // keep an array in state of which ones are expanded.
-  // When you click toggleComment it checks if that id is already in the expanded list. If yes, it removes it, if not it adds it.
-  // During map check if state.expanded includes ts_id
-  // add ts_id to toggleComment
-  // when calling it pass it the param
-  toggleComment = ts => {
-    console.log(ts);
-    const expanded = this.state.expanded;
-    expanded.filter(exp => {
-      if (exp.ts_id === ts.ts_id) {
-        return exp.push(ts);
-      } else if (exp.ts_id !== ts.ts_id) {
-        return expanded.filter(exp => exp.ts !== ts);
-      }
+  // already getting the userid
+  // take that userid as a parameter
+  // do a get request to the backend
+  // check if the userid passed in matches a userid on the backend
+  // if yes, pull it from the username from the backend
+
+  getUserName = userid => {
+    fetchUsers().then(users => {
+      return users.find(user => {
+        if (user.user_id === userid) {
+          return <div> {user.user_name} </div>;
+        }
+      });
     });
-    return expanded;    
+  };
+
+  toggleComment = ts_id => {
+    let expanded = [...this.state.expanded];
+    if (this.state.expanded.includes(ts_id)) {
+      expanded = expanded.filter(exp => {
+        return exp !== ts_id;
+      });
+    } else {
+      expanded.push(ts_id);
+    }
+    this.setState({
+      expanded,
+    });
+  };
+
+  tsExpanded = ts => {
+    return (
+      <tr key={ts.ts_id} name='comment' className='container'>
+        <th>{this.getUserName(ts.userid)}</th>
+        <th>
+          <h5>{ts.comment}</h5>
+        </th>
+        <th>
+          <button onClick={() => this.handleLikeClick(ts.ts_id, ts.likes)}>
+            {' '}
+            Like{' '}
+          </button>{' '}
+          <span> {ts.likes}</span>
+          <button
+            onClick={() => this.handleDislikeClick(ts.ts_id, ts.dislikes)}
+          >
+            {' '}
+            Dislike
+          </button>{' '}
+          <span> {ts.dislikes} </span>
+        </th>
+      </tr>
+    );
   };
 
   renderElement = () => {
@@ -42,6 +82,20 @@ export default class Details extends Component {
     return element;
   };
 
+  handleLikeClick = (ts_id, likes) => {
+    const userid = TokenService.jwtDecode(TokenService.getAuthToken()).payload
+      .user_id;
+    updateConfirmationCount(ts_id, likes, userid);
+    this.context.iterateLikes(ts_id);
+  };
+
+  handleDislikeClick = (ts_id, dislikes) => {
+    const userid = TokenService.jwtDecode(TokenService.getAuthToken()).payload
+      .user_id;
+    updateConfirmationCount(ts_id, dislikes, userid);
+    this.context.iterateDislikes(ts_id);
+  };
+
   handleConfirmationClick = (ts_id, confirmations) => {
     const userid = TokenService.jwtDecode(TokenService.getAuthToken()).payload
       .user_id;
@@ -50,7 +104,6 @@ export default class Details extends Component {
   };
 
   render() {
-    console.log(this.state.expanded);
     const timestamps = this.context.timestamps;
     const movies = this.context.movies[0];
     const shows = this.context.shows[0];
@@ -63,9 +116,12 @@ export default class Details extends Component {
         })
         .map(ts => {
           return (
-            <tbody onClick={() => this.toggleComment(ts)} key={ts.ts_id}>
+            <tbody key={ts.ts_id}>
               <tr className='container'>
-                <th> {ts.timestamp} </th>
+                <th onClick={() => this.toggleComment(ts.ts_id)}>
+                  {' '}
+                  {ts.timestamp}{' '}
+                </th>
                 <th> {ts.volume} </th>
                 <th>
                   {TokenService.getAuthToken() ? (
@@ -81,18 +137,12 @@ export default class Details extends Component {
                   {ts.confirmations}
                 </th>
               </tr>
-              <tr name='comment' className='comment'>
-                <th>
-                  <h3> UserName </h3>
-                </th>
-                <th>
-                  <h4>{ts.comment}</h4>
-                </th>
-                <th>
-                  <button> Like </button>
-                  <button> Dislike </button>
-                </th>
-              </tr>
+              {this.state.expanded.includes(ts.ts_id)
+                ? this.tsExpanded(ts)
+                : ''}
+              <div className='delete-ts-container'>
+                <button className='delete-ts-btn'> Delete </button>
+              </div>
             </tbody>
           );
         });

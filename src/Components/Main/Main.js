@@ -34,6 +34,19 @@ export default class Main extends Component {
     });
   };
 
+  renderBarkStatus = imdbID => {
+    const barks = this.context.barks;
+    let element = <th> Not Reported </th>;
+    barks
+      .filter(b => {
+        return b.media_id === imdbID;
+      })
+      .map(b => {
+        element = <th> {b.barks} </th>;
+      });
+    return element;
+  };
+
   handleSearch = e => {
     e.preventDefault();
     const { page } = e.target;
@@ -44,10 +57,7 @@ export default class Main extends Component {
       fetchMovies(title.value, page.value)
         .then(movies => {
           this.context.addMovies(movies.Search);
-          this.context.updateMovieTotalResults(movies.totalResults)
-          // this.setState({
-          //   totalResults: movies.totalResults,
-          // });
+          this.context.updateMovieTotalResults(movies.totalResults);
         })
         .then(() => {
           this.setState({
@@ -92,7 +102,7 @@ export default class Main extends Component {
               </th>
 
               <th> {movie.Year} </th>
-              <th> Yes</th>
+              {this.renderBarkStatus(movie.imdbID)}
 
               {TokenService.getAuthToken() ? (
                 <th>
@@ -106,7 +116,7 @@ export default class Main extends Component {
         );
       });
     }
-  
+
     if (shows) {
       renderList = shows.map(show => {
         return (
@@ -120,9 +130,9 @@ export default class Main extends Component {
                   {show.Title}
                 </Link>
               </th>
-
               <th> {show.Year} </th>
-              <th> Yes </th>
+              {this.renderBarkStatus(show.imdbID)}
+
               {TokenService.getAuthToken() ? (
                 <th>
                   <Link to={`/tsform/${show.imdbID}`}>
@@ -167,7 +177,7 @@ export default class Main extends Component {
         </form>
         <table width='90%' id='table' className='main-table'>
           <caption>Search Results</caption>
-            <caption> Results: 10 of {this.context.totalResults}</caption>
+          <caption> Results: 10 of {this.context.totalResults}</caption>
           <thead>
             <tr>
               <th> Title </th>
