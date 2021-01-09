@@ -1,27 +1,50 @@
+/* Mobile */
 .main {
   display: flex;
   flex-direction: column;
-  text-align: center;
-  margin-top: 20px;
 }
 
 .search {
+  padding: 20px;
   display: flex;
-  justify-content: center;
   flex-direction: column;
-  width: 40%;
-  align-self: center;
 }
 
 .search input,
-.search select,
+select {
+  font-family: 'Titillium Web', sans-serif;
+  margin-bottom: 0.5rem;
+  height: 1.5rem;
+  margin-left: 6px;
+  padding-left: 0.8rem;
+  border-radius: 0.1rem;
+  border: none;
+}
+
+.search select {
+  height: 1.6rem;
+}
+
+.page {
+  width: 20%;
+  align-self: center;
+}
+
 .search button {
-  margin: 5px;
+  height: 30px;
+  font-size: 16px;
+  border: none;
+  border-radius: 7px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: bold;
+}
+
+.type-title {
+  display: flex;
+  justify-content: center;
 }
 
 .main-table {
-  background-color: white;
-  margin-top: 20px;
   align-self: center;
 }
 
@@ -32,9 +55,11 @@ caption {
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
+  color: white;
 }
 
-td, th {
+td,
+th {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
@@ -44,3 +69,5 @@ td, th {
 tr:nth-child(even) {
   background-color: #dddddd;
 }
+
+/* Desktop */

@@ -148,22 +148,25 @@ export default class Main extends Component {
     return (
       <div className='main'>
         <form onSubmit={e => this.handleSearch(e)} className='search'>
-          <select
-            onChange={this.handleChange}
-            name='filter'
-            value={this.state.filter}
-          >
-            <option> movies </option>
-            <option> tv shows </option>
-          </select>
+          <div className='type-title'>
+            <select
+              onChange={this.handleChange}
+              name='filter'
+              value={this.state.filter}
+            >
+              <option> movies </option>
+              <option> tv shows </option>
+            </select>
+            <input
+              onChange={this.handleChange}
+              type='text'
+              name='title'
+              placeholder='title'
+              value={this.state.title}
+            ></input>
+          </div>
           <input
-            onChange={this.handleChange}
-            type='text'
-            name='title'
-            placeholder='title'
-            value={this.state.title}
-          ></input>
-          <input
+            className='page'
             onChange={this.handleChange}
             type='number'
             name='page'

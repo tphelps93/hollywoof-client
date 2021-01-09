@@ -1,5 +1,6 @@
 // Dependency Imports
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 // API Imports
 import { postUser } from '../../services/api-service';
 // CSS Imports
@@ -38,10 +39,13 @@ export default class Registration extends Component {
           <h1> Register to Hollywoof </h1>
           <h3> You'll have access to...</h3>
           <ul>
-            <li>Reporting in if you find a movie or show with a barking dog</li>
-            <li>Adding timestamps</li>
-            <li>Setting the volume of the particular occurrence</li>
-            <li>Confirming others'reports</li>
+            <li>
+              {' '}
+              - Reporting in if you find a movie or show with a barking dog
+            </li>
+            <li> - Adding timestamps</li>
+            <li> - Setting the volume of the particular occurrence</li>
+            <li> - Confirming others'reports</li>
           </ul>
         </div>
         <div className='register-form'>
@@ -52,6 +56,7 @@ export default class Registration extends Component {
               name='name'
               placeholder='name'
             ></input>
+
             <input
               onChange={this.handleChange}
               type='text'
@@ -65,6 +70,7 @@ export default class Registration extends Component {
               placeholder='password'
             ></input>
             <button type='submit'> Submit </button>
+            <p> Already registered? <Link style={{textDecoration:'none'}} to='/login'><a> Login Here </a> </Link></p>
           </form>
         </div>
       </div>

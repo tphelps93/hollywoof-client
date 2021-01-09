@@ -1,36 +1,63 @@
 /* Mobile */
+.bg {
+  min-height: 100%;
+  min-width: 1024px;
+  background-repeat: no-repeat;
+
+  width: 100%;
+  height: 100%;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.gallery {
+  background-repeat: no-repeat;
+  animation: shimmy 20s cubic-bezier(1, 0, 0, 15) infinite;
+}
+
+@keyframes shimmy {
+  0% {
+    background: url('https://4kwallpapers.com/images/wallpapers/black-dog-cute-puppies-black-background-dark-amoled-5k-1680x1050-1507.jpg');
+  }
+  50% {
+    background: url('https://images.wallpaperscraft.com/image/dogs_black_black_background_65472_1680x1050.jpg');
+  }
+  100% {
+    background: url('https://4kwallpapers.com/images/wallpapers/black-dog-cute-puppies-black-background-dark-amoled-5k-1680x1050-1507.jpg');
+  }
+}
+
 .landing-content {
   color: white;
   text-align: center;
-  display: flex;
-  flex-direction: column;
+  margin-top: 150px;
+  padding: 20px;
 }
 
-.landing h1 {
-  color: goldenrod;
-}
-
-.landing h4 {
-  font-size: 25px;
-  margin-top: -5%;
-}
-
-.landing p {
-  width: 50%;
-  align-self: center;
-  line-height: 24px;
-  font-size: 23px;
-}
-
-.landing-btn {
-  text-align: center;
-}
-
-.landing-btn button {
-  padding: 2%;
+.landing-content button {
+  height: 30px;
+  font-size: 16px;
   border: none;
-  border-radius: 7%;
-  font-size: 23px;
+  border-radius: 7px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: bold;
+}
+
+.landing-content h1 {
+  font-family: 'Fjalla One', sans-serif;
+  font-size: 40px;
+}
+
+.landing-content h4 {
+  font-size: 20px;
+  font-family: 'Fjalla One', sans-serif;
+}
+
+.landing-content p {
+  font-family: 'Titillium Web', sans-serif;
 }
 
 .landing-posters {
@@ -40,34 +67,40 @@
 /* Desktop */
 
 @media all and (min-width: 768px) {
-  .landing {
-    display: flex;
+  .landing-content button {
+    height: 35px;
+    font-size: 20px;
+    width: 15%;
   }
+
   .landing-content {
-    width: 40%;
-    text-align: center;
-  }
-
-  .landing p {
-    text-align: center;
-  }
-
-  .landing-btn {
-    width: 40%;
-    text-align: center;
-    align-self: center;
-  }
-
-  .landing-posters {
-    display: block;
-    width: 60%;
-    height: 50%;
-    text-align: center;
-  }
-
-  .landing-poster {
-    height: 40vh;
-    margin-top: 20%;
+    margin-top: 260px;
     margin-left: 3%;
+    text-align: left;
   }
+
+  .landing-content h1 {
+    font-size: 80px;
+  }
+
+  .landing-content h4 {
+    font-size: 25px;
+  }
+
+  .landing-content p {
+    font-size: 20px;
+    line-height: 10px;
+  }
+
+  /* .landing-posters {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -350px;
+    margin-right: 200px;
+  }
+
+  .landing-posters img {
+    height: 350px;
+    margin: 20px;
+  } */
 }

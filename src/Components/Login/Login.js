@@ -1,5 +1,6 @@
 // Dependency Imports
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 // API Service Imports
 import TokenService from '../../services/token-service';
 import AuthApiService from '../../services/auth-api-service';
@@ -10,7 +11,7 @@ import './Login.css';
 export default class Login extends Component {
   state = { error: null };
   static contextType = DataContext;
-  
+
   handleSubmitJwtAuth = e => {
     e.preventDefault();
     this.setState({ error: null });
@@ -42,13 +43,19 @@ export default class Login extends Component {
         </div>
         <div className='login-form'>
           <form onSubmit={this.handleSubmitJwtAuth}>
-            <input type='text' name='user_name' placeholder='username'></input>
-            <input
-              type='password'
-              name='password'
-              placeholder='password'
-            ></input>
+              <input
+                type='text'
+                name='user_name'
+                placeholder='username'
+              ></input>
+              <input
+                type='password'
+                name='password'
+                placeholder='password'
+              ></input>
             <button type='submit'> Submit </button>
+            <p> Don't have an account? <Link style={{textDecoration:'none'}} to='/register'><a> Register Here </a> </Link></p>
+
             <div style={{ color: 'red', fontSize: 10 }}>{this.state.error}</div>
           </form>
         </div>

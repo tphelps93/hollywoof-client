@@ -1,43 +1,26 @@
-.login-register, .logout {
-    display: flex;
-    justify-content: center;
-    padding: 5px 5px;
-    margin-top: -43px;
-    margin-right: 2%
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
 }
 
-.login-register button, .logout button {
-    margin-left: 10%;
-}
-
-.home-btn {
-    margin: 5px 10px;
+.login-register button {
+  margin-left: 5px;
 }
 
 .header button {
-    padding: 4px;
-    border-radius: 7%;
-    border: none;
-    font-size: 20px;
+  height: 30px;
+  font-size: 16px;
+  border: none;
+  border-radius: 7px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: bold;
 }
 
 @media all and (min-width: 768px) {
-    .login-register, .logout {
-        margin-top: -1.7%;
-    }
-
-    .login-register button, .logout button {
-        margin-left: 8px;
-    }
-    
-    .home-btn {
-        margin: 5px 10px;
-    }
-    
-    .header button {
-        padding: 4px;
-        border-radius: 7%;
-        border: none;
-        font-size: 13px;
-    }
+  .header button {
+    height: 35px;
+    width: 80px;
+    font-size: 20px;
+  }
 }
