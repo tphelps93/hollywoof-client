@@ -90,6 +90,14 @@ export default class App extends Component {
     });
   };
 
+  updateBarkStatus = id => {
+    this.setState({
+      barks: this.state.barks.map(b => {
+        return b.bark_id === id ? { ...b, barks: (b.barks = 'Yes') } : b;
+      }),
+    });
+  };
+
   iterateDislikes = id => {
     this.setState({
       timestamps: this.state.timestamps.map(timestamp => {
@@ -153,6 +161,7 @@ export default class App extends Component {
       iterateDislikes: this.iterateDislikes,
       updateMovieTotalResults: this.updateMovieTotalResults,
       updateShowsTotalResults: this.updateShowsTotalResults,
+      updateBarkStatus: this.updateBarkStatus,
       resetList: this.resetList,
       setAuthToken: this.setAuthToken,
       clearAuthToken: this.clearAuthToken,

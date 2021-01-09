@@ -84,7 +84,6 @@ export default class Main extends Component {
   render() {
     const movies = this.context.movies[0];
     const shows = this.context.shows[0];
-    const barks = this.context.barks;
 
     let renderList;
     if (movies) {

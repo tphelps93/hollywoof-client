@@ -131,7 +131,7 @@ export const updateLikeCount = (ts_id, likes, userid) => {
   });
 };
 
-export const updateDislikeLikeCount = (ts_id, dislikes, userid) => {
+export const updateDislikeCount = (ts_id, dislikes, userid) => {
   return fetch(`${config.API_BASE_URL}/timestamps/${ts_id}`, {
     method: 'PATCH',
     headers: {
@@ -147,6 +147,27 @@ export const updateDislikeLikeCount = (ts_id, dislikes, userid) => {
     if (!res.ok) {
       throw new Error(
         `Something went wrong updating ${ts_id}, please try again later.`
+      );
+    }
+  });
+};
+
+/* Barks */
+export const updateBarkStatus = (bark_id, barks) => {
+  return fetch(`${config.API_BASE_URL}/barks/${bark_id}`, {
+    method: 'PATCH',
+    headers: {
+      'content-type': 'application/json',
+      authorization: `bearer ${TokenService.getAuthToken()}`,
+    },
+    body: JSON.stringify({
+      bark_id,
+      barks,
+    }),
+  }).then(res => {
+    if (!res.ok) {
+      throw new Error(
+        `Something went wrong updating ${bark_id}, please try again later.`
       );
     }
   });

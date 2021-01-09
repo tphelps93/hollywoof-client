@@ -7,6 +7,9 @@ import DataContext from '../../contexts/DataContext';
 import {
   fetchUsers,
   updateConfirmationCount,
+  updateLikeCount,
+  updateDislikeCount,
+  updateBarkStatus,
 } from '../../services/api-service';
 import TokenService from '../../services/token-service';
 // CSS Imports
@@ -22,15 +25,27 @@ export default class Details extends Component {
   // check if the userid passed in matches a userid on the backend
   // if yes, pull it from the username from the backend
 
-  getUserName = userid => {
-    fetchUsers().then(users => {
-      return users.find(user => {
-        if (user.user_id === userid) {
-          return <div> {user.user_name} </div>;
-        }
-      });
-    });
-  };
+  // async getUserName(userid) {
+  //   try {
+  //     const resp = await fetchUsers();
+  //     let user = resp.find(user => {
+  //       return user.user_id === userid;
+  //     });
+  //     console.log(user);
+  //     console.log(user.user_name);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
+  // async getUserName = userid => {
+  //   let user = fetchUsers().then(users => {
+  //     return users.find(user => {
+  //       return user.user_id === userid;
+  //     });
+  //   });
+  //   console.log(user.user_name);
+  //   return <p>{user && user.user_name}</p>
+  // };
 
   toggleComment = ts_id => {
     let expanded = [...this.state.expanded];
@@ -49,7 +64,7 @@ export default class Details extends Component {
   tsExpanded = ts => {
     return (
       <tr key={ts.ts_id} name='comment' className='container'>
-        <th>{this.getUserName(ts.userid)}</th>
+        {/* <th>{this.getUserName(ts.userid)}</th> */}
         <th>
           <h5>{ts.comment}</h5>
         </th>
@@ -58,14 +73,14 @@ export default class Details extends Component {
             {' '}
             Like{' '}
           </button>{' '}
-          <span> {ts.likes}</span>
+          <span name='likes'> {ts.likes}</span>
           <button
             onClick={() => this.handleDislikeClick(ts.ts_id, ts.dislikes)}
           >
             {' '}
             Dislike
           </button>{' '}
-          <span> {ts.dislikes} </span>
+          <span name='dislikes'> {ts.dislikes} </span>
         </th>
       </tr>
     );
@@ -76,23 +91,44 @@ export default class Details extends Component {
     let element = <p> Dog Barks: Not Reported </p>;
     for (let i = 0; i < barks.length; i++) {
       if (barks[i].media_id === this.props.match.params.imdbID) {
-        element = <p> Dog Barks: {barks[i].barks} </p>;
+        element = (
+          <p>
+            Dog Barks: <span id='barks'>{barks[i].barks}</span>
+            <button
+              onClick={() =>
+                this.handleUpdateBarkStatus(barks[i].bark_id, barks[i].barks)
+              }
+            >
+              Test
+            </button>
+          </p>
+        );
       }
     }
     return element;
   };
 
+  handleUpdateBarkStatus = (id, input) => {
+    const barks = this.context.barks;
+    for (let i = 0; i < barks.length; i++) {
+      if (barks[i].media_id === this.props.match.params.imdbID) {
+        updateBarkStatus(id, input);
+        this.context.updateBarkStatus(id);
+      }
+    }
+  };
+
   handleLikeClick = (ts_id, likes) => {
     const userid = TokenService.jwtDecode(TokenService.getAuthToken()).payload
       .user_id;
-    updateConfirmationCount(ts_id, likes, userid);
+    updateLikeCount(ts_id, likes, userid);
     this.context.iterateLikes(ts_id);
   };
 
   handleDislikeClick = (ts_id, dislikes) => {
     const userid = TokenService.jwtDecode(TokenService.getAuthToken()).payload
       .user_id;
-    updateConfirmationCount(ts_id, dislikes, userid);
+    updateDislikeCount(ts_id, dislikes, userid);
     this.context.iterateDislikes(ts_id);
   };
 
