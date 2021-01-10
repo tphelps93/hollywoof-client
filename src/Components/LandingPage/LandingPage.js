@@ -9,8 +9,15 @@ export default class LandingPage extends Component {
     return (
       <div className='landing'>
         <div className='gallery bg'>
-          <img src='http://placekitten.com/600/200' alt=''style={{opacity: '0'}}/>
-
+          <div className='slide'>
+            <img src='https://4kwallpapers.com/images/wallpapers/black-dog-cute-puppies-black-background-dark-amoled-5k-1680x1050-1507.jpg' alt='dog'></img>
+          </div>
+          <div className='slide'>
+            <img src='https://images.wallpaperscraft.com/image/dogs_black_black_background_65472_1680x1050.jpg' alt='dog'></img>
+          </div>
+           {/* <div className='slide'>
+             <img src='https://cdn.wallpapersafari.com/79/29/ujZqez.jpg' alt='dog'></img>
+           </div> */}
         </div>
         <div className='landing-content'>
           <h1> HollyWoof </h1>
