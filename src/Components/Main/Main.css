@@ -8,6 +8,13 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
+  width: 30%;
+  align-self: center;
+}
+
+.search button {
+  width: 40%;
+  align-self: center;
 }
 
 .search input,
