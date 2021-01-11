@@ -12,11 +12,6 @@
   align-self: center;
 }
 
-.search button {
-  width: 40%;
-  align-self: center;
-}
-
 .search input,
 select {
   font-family: 'Titillium Web', sans-serif;
@@ -41,9 +36,11 @@ select {
   height: 30px;
   font-size: 16px;
   border: none;
-  border-radius: 7px;
+  border-radius: 5px;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: bold;
+  width: 40%;
+  align-self: center;
 }
 
 .type-title {
