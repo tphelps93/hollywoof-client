@@ -20,7 +20,7 @@ export default class LandingPage extends Component {
            </div> */}
         </div>
         <div className='landing-content'>
-          <h1> HollyWoof </h1>
+          <h1> <span className='line'>HollyWoof</span> </h1>
           <h4> Save an evening. Report in. </h4>
           <p>Hollywoof is an application that aims to prepare</p>{' '}
           <p> dog owners in the event of a dog barking on screen.</p>

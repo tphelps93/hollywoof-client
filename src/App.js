@@ -68,6 +68,12 @@ export default class App extends Component {
     });
   };
 
+  addBark = newBark => {
+    this.setState({
+      barks: [...this.state.barks, newBark],
+    });
+  };
+
   /* Update State */
 
   iterateConfirmations = id => {
@@ -86,14 +92,6 @@ export default class App extends Component {
         return timestamp.ts_id === id
           ? { ...timestamp, likes: timestamp.likes + 1 }
           : timestamp;
-      }),
-    });
-  };
-
-  updateBarkStatus = id => {
-    this.setState({
-      barks: this.state.barks.map(b => {
-        return b.bark_id === id ? { ...b, barks: (b.barks = 'Yes') } : b;
       }),
     });
   };
@@ -156,12 +154,12 @@ export default class App extends Component {
       addMovies: this.addMovies,
       addShows: this.addShows,
       addTimestamps: this.addTimestamps,
+      addBark: this.addBark,
       iterateConfirmations: this.iterateConfirmations,
       iterateLikes: this.iterateLikes,
       iterateDislikes: this.iterateDislikes,
       updateMovieTotalResults: this.updateMovieTotalResults,
       updateShowsTotalResults: this.updateShowsTotalResults,
-      updateBarkStatus: this.updateBarkStatus,
       resetList: this.resetList,
       setAuthToken: this.setAuthToken,
       clearAuthToken: this.clearAuthToken,

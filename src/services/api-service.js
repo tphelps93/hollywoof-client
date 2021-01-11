@@ -88,6 +88,21 @@ export const postUser = (name, user_name, password) => {
   });
 };
 
+// Barks
+export const postBarks = (barks, media_id) => {
+  return fetch(`${config.API_BASE_URL}/barks`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      authorization: `bearer ${TokenService.getAuthToken()}`
+    },
+    body: JSON.stringify({
+      barks,
+      media_id,
+    }),
+  });
+};
+
 /* UPDATE */
 export const updateConfirmationCount = (ts_id, confirmations, userid) => {
   return fetch(`${config.API_BASE_URL}/timestamps/${ts_id}`, {
@@ -152,26 +167,6 @@ export const updateDislikeCount = (ts_id, dislikes, userid) => {
   });
 };
 
-/* Barks */
-export const updateBarkStatus = (bark_id, barks) => {
-  return fetch(`${config.API_BASE_URL}/barks/${bark_id}`, {
-    method: 'PATCH',
-    headers: {
-      'content-type': 'application/json',
-      authorization: `bearer ${TokenService.getAuthToken()}`,
-    },
-    body: JSON.stringify({
-      bark_id,
-      barks,
-    }),
-  }).then(res => {
-    if (!res.ok) {
-      throw new Error(
-        `Something went wrong updating ${bark_id}, please try again later.`
-      );
-    }
-  });
-};
 /* DELETE */
 
 export const deleteTimestamp = ts_id => {

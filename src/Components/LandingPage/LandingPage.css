@@ -1,7 +1,7 @@
 /* Mobile */
 .bg {
   min-height: 100%;
-  min-width: 1024px;
+  min-width: 100%;
   background-repeat: no-repeat;
   overflow: hidden;
 
@@ -68,6 +68,11 @@
   }
 }
 
+.line {
+  border-bottom: 2px solid white;
+  padding-bottom: 5px;
+}
+
 .landing-content {
   color: white;
   text-align: center;
@@ -128,6 +133,11 @@
   .landing-content p {
     font-size: 20px;
     line-height: 10px;
+  }
+
+  .line {
+    width: 300px;
+    margin-right: 100%;
   }
 
   /* .landing-posters {

@@ -36,7 +36,7 @@ select {
   height: 30px;
   font-size: 16px;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: bold;
   width: 40%;
@@ -48,30 +48,49 @@ select {
   justify-content: center;
 }
 
-.main-table {
-  align-self: center;
+.search-res {
+  font-size: 20px;
 }
 
-caption {
-  color: white;
+.num-res {
+  margin-top: -10px;
 }
 
 table {
-  font-family: arial, sans-serif;
   border-collapse: collapse;
+  border-spacing: 0.5rem;
   color: white;
+  align-self: center;
+  font-family: 'Source Sans Pro', sans-serif;
+  border: 3px solid white;
 }
 
-td,
-th {
-  border: 1px solid #dddddd;
+table caption {
+  margin: 10px;
+}
+
+thead th {
+  border: 3px solid white;
+  background-color: white;
+  color: black;
+  text-align: center;
+}
+
+.main-table button {
+  height: 30px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: bold;
+  width: 40%;
+  align-self: center;
+}
+
+td, th {
+  border: 3px solid white;
+  padding: 0.5rem;
   text-align: left;
-  padding: 8px;
-  width: 100%;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
 }
 
 /* Desktop */

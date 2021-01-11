@@ -5,11 +5,10 @@ import { Link } from 'react-router-dom';
 import DataContext from '../../contexts/DataContext';
 // API Service Imports
 import {
-  fetchUsers,
   updateConfirmationCount,
   updateLikeCount,
   updateDislikeCount,
-  updateBarkStatus,
+  postBarks,
 } from '../../services/api-service';
 import TokenService from '../../services/token-service';
 // CSS Imports
@@ -19,35 +18,7 @@ export default class Details extends Component {
   state = { error: null, expanded: [], username: '' };
   static contextType = DataContext;
 
-  // already getting the userid
-  // take that userid as a parameter
-  // do a get request to the backend
-  // check if the userid passed in matches a userid on the backend
-  // if yes, pull it from the username from the backend
-
-  // async getUserName(userid) {
-  //   try {
-  //     const resp = await fetchUsers();
-  //     let user = resp.find(user => {
-  //       return user.user_id === userid;
-  //     });
-  //     console.log(user);
-  //     console.log(user.user_name);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
-  // async getUserName = userid => {
-  //   let user = fetchUsers().then(users => {
-  //     return users.find(user => {
-  //       return user.user_id === userid;
-  //     });
-  //   });
-  //   console.log(user.user_name);
-  //   return <p>{user && user.user_name}</p>
-  // };
-
-  toggleComment = ts_id => {
+  async toggleComment(ts_id) {
     let expanded = [...this.state.expanded];
     if (this.state.expanded.includes(ts_id)) {
       expanded = expanded.filter(exp => {
@@ -64,7 +35,7 @@ export default class Details extends Component {
   tsExpanded = ts => {
     return (
       <tr key={ts.ts_id} name='comment' className='container'>
-        {/* <th>{this.getUserName(ts.userid)}</th> */}
+        <th>{ts.user_name}</th>
         <th>
           <h5>{ts.comment}</h5>
         </th>
@@ -92,30 +63,26 @@ export default class Details extends Component {
     for (let i = 0; i < barks.length; i++) {
       if (barks[i].media_id === this.props.match.params.imdbID) {
         element = (
-          <p>
-            Dog Barks: <span id='barks'>{barks[i].barks}</span>
-            <button
-              onClick={() =>
-                this.handleUpdateBarkStatus(barks[i].bark_id, barks[i].barks)
-              }
-            >
-              Test
-            </button>
-          </p>
+          <div className='bark-stat'>
+            <p>
+              Dog Barks: <span id='barks'>{barks[i].barks}</span>
+            </p>
+          </div>
         );
       }
     }
     return element;
   };
 
-  handleUpdateBarkStatus = (id, input) => {
-    const barks = this.context.barks;
-    for (let i = 0; i < barks.length; i++) {
-      if (barks[i].media_id === this.props.match.params.imdbID) {
-        updateBarkStatus(id, input);
-        this.context.updateBarkStatus(id);
-      }
-    }
+  handlePostBarkStatus = e => {
+    const user_id = TokenService.jwtDecode(TokenService.getAuthToken()).payload
+      .user_id;
+    e.preventDefault();
+    const { status } = e.target;
+    const mediaId = this.props.match.params.imdbID;
+    postBarks(status.value, mediaId, user_id).then(updatedStatus => {
+      this.context.addBark(updatedStatus);
+    });
   };
 
   handleLikeClick = (ts_id, likes) => {
@@ -141,6 +108,7 @@ export default class Details extends Component {
 
   render() {
     const timestamps = this.context.timestamps;
+    console.log(timestamps);
     const movies = this.context.movies[0];
     const shows = this.context.shows[0];
 
@@ -170,15 +138,12 @@ export default class Details extends Component {
                     </button>
                   ) : null}
 
-                  {ts.confirmations}
+                  <span>{ts.confirmations}</span>
                 </th>
               </tr>
               {this.state.expanded.includes(ts.ts_id)
                 ? this.tsExpanded(ts)
                 : ''}
-              <div className='delete-ts-container'>
-                <button className='delete-ts-btn'> Delete </button>
-              </div>
             </tbody>
           );
         });
@@ -205,6 +170,13 @@ export default class Details extends Component {
               <h3> {movie.Title} </h3>
               <p> Release Date: {movie.Year} </p>
               {this.renderElement()}
+              <form onSubmit={e => this.handlePostBarkStatus(e)}>
+                <select name='status'>
+                  <option> Yes </option>
+                  <option> No </option>
+                </select>
+                <button type='submit'>Update</button>
+              </form>
               <Link to='/main'>
                 <button> Back </button>
               </Link>
@@ -232,6 +204,13 @@ export default class Details extends Component {
               <h3> {show.Title} </h3>
               <p> Release Date: {show.Year} </p>
               {this.renderElement()}
+              <form onSubmit={e => this.handleUpdateBarkStatus(e)}>
+                <select name='status'>
+                  <option> Yes </option>
+                  <option> No </option>
+                </select>{' '}
+              </form>
+              <button type='submit'>Update</button>
               <Link to='/main'>
                 <button> Back </button>
               </Link>

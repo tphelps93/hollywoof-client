@@ -13,7 +13,7 @@ import './Main.css';
   Break into smaller components
    1. Filter
    2. Table
-    */
+*/
 
 export default class Main extends Component {
   state = {
@@ -93,7 +93,7 @@ export default class Main extends Component {
             <tr>
               <th>
                 <Link
-                  style={{ textDecoration: 'none', color: 'black' }}
+                  style={{ textDecoration: 'none', color: 'white' }}
                   to={`/details/${movie.imdbID}`}
                 >
                   {movie.Title}
@@ -178,8 +178,8 @@ export default class Main extends Component {
           <button type='submit'> Submit </button>
         </form>
         <table width='90%' id='table' className='main-table'>
-          <caption>Search Results</caption>
-          <caption> Results: 10 of {this.context.totalResults}</caption>
+            <caption className='search-res'>Search Results</caption>
+            <caption className='num-res'> Results: 10 of {this.context.totalResults}</caption>
           <thead>
             <tr>
               <th> Title </th>
