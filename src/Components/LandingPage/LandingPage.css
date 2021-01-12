@@ -15,6 +15,7 @@
 }
 
 .slide {
+  margin-top: 130px;
   position: absolute;
   top: 0;
   left: 0;
@@ -103,9 +104,6 @@
   font-family: 'Titillium Web', sans-serif;
 }
 
-.landing-posters {
-  display: none;
-}
 
 /* Desktop */
 
@@ -120,6 +118,7 @@
     margin-top: 260px;
     margin-left: 3%;
     text-align: left;
+    width: 100%;
   }
 
   .landing-content h1 {
@@ -139,16 +138,4 @@
     width: 300px;
     margin-right: 100%;
   }
-
-  /* .landing-posters {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: -350px;
-    margin-right: 200px;
-  }
-
-  .landing-posters img {
-    height: 350px;
-    margin: 20px;
-  } */
 }

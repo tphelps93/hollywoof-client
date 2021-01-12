@@ -42,7 +42,8 @@ export const postTimestamps = (
   volume,
   confirmations,
   media_id,
-  userid
+  userid,
+  user_name
 ) => {
   return fetch(`${config.API_BASE_URL}/timestamps`, {
     method: 'POST',
@@ -57,6 +58,7 @@ export const postTimestamps = (
       confirmations,
       media_id,
       userid,
+      user_name,
     }),
   }).then(res => {
     if (!res.ok) {
@@ -94,7 +96,7 @@ export const postBarks = (barks, media_id) => {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
-      authorization: `bearer ${TokenService.getAuthToken()}`
+      authorization: `bearer ${TokenService.getAuthToken()}`,
     },
     body: JSON.stringify({
       barks,
@@ -174,6 +176,7 @@ export const deleteTimestamp = ts_id => {
     method: 'DELETE',
     headers: {
       'content-type': 'application/json',
+      authorization: `bearer ${TokenService.getAuthToken()}`,
     },
   }).then(res => {
     if (!res.ok) {

@@ -18,6 +18,7 @@ const DataContext = React.createContext({
   iterateDislikes: () => {},
   updateMoviesTotalResults: () => {},
   updateShowsTotalResults: () => {},
+  deleteTS: () => {},
   resetList: () => {},
   setAuthToken: () => {},
   clearAuthToken: () => {},

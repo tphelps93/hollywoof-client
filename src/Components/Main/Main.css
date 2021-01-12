@@ -19,7 +19,7 @@ select {
   height: 1.5rem;
   margin-left: 6px;
   padding-left: 0.8rem;
-  border-radius: 0.1rem;
+  border-radius: 4px;
   border: none;
 }
 
@@ -39,7 +39,7 @@ select {
   border-radius: 4px;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: bold;
-  width: 40%;
+  width: 90px;
   align-self: center;
 }
 
@@ -54,6 +54,10 @@ select {
 
 .num-res {
   margin-top: -10px;
+}
+
+.main-table {
+  margin-top: 20px; 
 }
 
 table {
@@ -83,14 +87,19 @@ thead th {
   border-radius: 5px;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: bold;
-  width: 40%;
+  width: 60px;
   align-self: center;
 }
 
-td, th {
+td,
+th {
   border: 3px solid white;
   padding: 0.5rem;
   text-align: left;
 }
 
 /* Desktop */
+@media all and (min-width: 768px) {
+
+
+}

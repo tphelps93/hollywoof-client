@@ -119,6 +119,13 @@ export default class App extends Component {
     });
   };
 
+  /* Delete State */
+  deleteTS = ts_id => {
+    this.setState({
+      timestamps: this.state.timestamps.filter(ts => ts.ts_id !== ts_id),
+    });
+  };
+
   /* Reset State */
 
   resetList = () => {
@@ -160,6 +167,7 @@ export default class App extends Component {
       iterateDislikes: this.iterateDislikes,
       updateMovieTotalResults: this.updateMovieTotalResults,
       updateShowsTotalResults: this.updateShowsTotalResults,
+      deleteTS: this.deleteTS,
       resetList: this.resetList,
       setAuthToken: this.setAuthToken,
       clearAuthToken: this.clearAuthToken,

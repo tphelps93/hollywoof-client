@@ -34,17 +34,24 @@ export default class TSForm extends Component {
     const { volume } = e.target;
 
     const confirmations = 0;
-
     const media_id = this.props.match.params.imdbID;
     const userid = TokenService.jwtDecode(TokenService.getAuthToken()).payload
       .user_id;
+    const user_name = TokenService.jwtDecode(TokenService.getAuthToken()).payload.user_name;
 
     const timestamp = this.combineTimestamps(
       hour.value,
       minute.value,
       second.value
     );
-    postTimestamps(timestamp, comment.value, volume.value, confirmations, media_id, userid)
+    postTimestamps(
+      timestamp,
+      comment.value,
+      volume.value,
+      confirmations,
+      media_id,
+      userid,
+    )
       .then(ts => {
         this.context.addTimestamps(ts);
       })
@@ -65,8 +72,12 @@ export default class TSForm extends Component {
   render() {
     return (
       <div className='ts-form'>
-        <form onSubmit={e => this.handleTSForm(e)}>
+        <div className='ts-content'>
+          <h3> Report A TimeStamp </h3>
+        </div>
+        <form className='timestamp' onSubmit={e => this.handleTSForm(e)}>
           <input
+            placeholder='hh'
             type='number'
             name='hour'
             min='1'
@@ -74,6 +85,8 @@ export default class TSForm extends Component {
             onChange={this.handleChange}
           ></input>
           <input
+            placeholder='mm'
+
             type='number'
             name='minute'
             min='1'
@@ -81,6 +94,7 @@ export default class TSForm extends Component {
             onChange={this.handleChange}
           ></input>
           <input
+            placeholder='ss'
             type='number'
             name='second'
             min='1'
@@ -88,7 +102,7 @@ export default class TSForm extends Component {
             onChange={this.handleChange}
           ></input>
 
-          <textarea name='comment'></textarea>
+          <textarea placeholder='comment' name='comment'></textarea>
           <select name='volume'>
             <option> High </option>
             <option> Medium </option>

@@ -9,6 +9,7 @@ import {
   updateLikeCount,
   updateDislikeCount,
   postBarks,
+  deleteTimestamp,
 } from '../../services/api-service';
 import TokenService from '../../services/token-service';
 // CSS Imports
@@ -30,27 +31,36 @@ export default class Details extends Component {
     this.setState({
       expanded,
     });
-  };
+  }
 
   tsExpanded = ts => {
     return (
-      <tr key={ts.ts_id} name='comment' className='container'>
-        <th>{ts.user_name}</th>
+      <tr key={ts.ts_id} name='comment' className='comm-container'>
         <th>
-          <h5>{ts.comment}</h5>
+          <p>Username</p><h2>{ts.user_name}</h2>
         </th>
         <th>
-          <button onClick={() => this.handleLikeClick(ts.ts_id, ts.likes)}>
-            {' '}
-            Like{' '}
-          </button>{' '}
-          <span name='likes'> {ts.likes}</span>
-          <button
-            onClick={() => this.handleDislikeClick(ts.ts_id, ts.dislikes)}
-          >
-            {' '}
-            Dislike
-          </button>{' '}
+          <p>Comment</p>
+          <h3>{ts.comment}</h3>
+        </th>
+        <th>
+          {TokenService.getAuthToken() ? (
+            <button onClick={() => this.handleLikeClick(ts.ts_id, ts.likes)}>
+              👍
+            </button>
+          ) : (
+            <span>👍</span>
+          )}
+          <span name='likes'>{ts.likes}</span>
+          {TokenService.getAuthToken() ? (
+            <button
+              onClick={() => this.handleDislikeClick(ts.ts_id, ts.dislikes)}
+            >
+              👎
+            </button>
+          ) : (
+            <span>👎</span>
+          )}
           <span name='dislikes'> {ts.dislikes} </span>
         </th>
       </tr>
@@ -73,6 +83,13 @@ export default class Details extends Component {
     }
     return element;
   };
+
+  handleClickDeleteTS = ts_id => {
+    deleteTimestamp(ts_id)
+    .then(ts => {
+      this.context.deleteTS(ts_id);
+    })
+  }
 
   handlePostBarkStatus = e => {
     const user_id = TokenService.jwtDecode(TokenService.getAuthToken()).payload
@@ -108,7 +125,6 @@ export default class Details extends Component {
 
   render() {
     const timestamps = this.context.timestamps;
-    console.log(timestamps);
     const movies = this.context.movies[0];
     const shows = this.context.shows[0];
 
@@ -127,7 +143,7 @@ export default class Details extends Component {
                   {ts.timestamp}{' '}
                 </th>
                 <th> {ts.volume} </th>
-                <th>
+                <th className='conf-hov'>
                   {TokenService.getAuthToken() ? (
                     <button
                       onClick={() =>
@@ -139,6 +155,11 @@ export default class Details extends Component {
                   ) : null}
 
                   <span>{ts.confirmations}</span>
+                  {ts.userid == TokenService.jwtDecode(TokenService.getAuthToken()).payload.user_id ? (
+                    <button onClick={() => this.handleClickDeleteTS(ts.ts_id)} className='delete-ts'> Delete </button>
+                  ) : (
+                    ''
+                  )}
                 </th>
               </tr>
               {this.state.expanded.includes(ts.ts_id)
@@ -170,16 +191,17 @@ export default class Details extends Component {
               <h3> {movie.Title} </h3>
               <p> Release Date: {movie.Year} </p>
               {this.renderElement()}
-              <form onSubmit={e => this.handlePostBarkStatus(e)}>
-                <select name='status'>
-                  <option> Yes </option>
-                  <option> No </option>
-                </select>
-                <button type='submit'>Update</button>
-              </form>
-              <Link to='/main'>
-                <button> Back </button>
-              </Link>
+              {TokenService.getAuthToken() ? (
+                <form onSubmit={e => this.handleUpdateBarkStatus(e)}>
+                  <select className='status' name='status'>
+                    <option> Yes </option>
+                    <option> No </option>
+                  </select>{' '}
+                  <button type='submit'>Update</button>
+                </form>
+              ) : (
+                ''
+              )}
             </div>
           );
         });
@@ -204,16 +226,17 @@ export default class Details extends Component {
               <h3> {show.Title} </h3>
               <p> Release Date: {show.Year} </p>
               {this.renderElement()}
-              <form onSubmit={e => this.handleUpdateBarkStatus(e)}>
-                <select name='status'>
-                  <option> Yes </option>
-                  <option> No </option>
-                </select>{' '}
-              </form>
-              <button type='submit'>Update</button>
-              <Link to='/main'>
-                <button> Back </button>
-              </Link>
+              {TokenService.getAuthToken() ? (
+                <form onSubmit={e => this.handleUpdateBarkStatus(e)}>
+                  <select className='status' name='status'>
+                    <option> Yes </option>
+                    <option> No </option>
+                  </select>{' '}
+                  <button type='submit'>Update</button>
+                </form>
+              ) : (
+                ''
+              )}
             </div>
           );
         });
@@ -233,6 +256,9 @@ export default class Details extends Component {
           </thead>
           {renderTimestamps}
         </table>
+        <Link to='/main'>
+          <button className='home-back'> Back </button>
+        </Link>
       </div>
     );
   }

@@ -123,7 +123,7 @@ export default class Main extends Component {
             <tr>
               <th>
                 <Link
-                  style={{ textDecoration: 'none', color: 'black' }}
+                  style={{ textDecoration: 'none', color: 'white' }}
                   to={`/details/${show.imdbID}`}
                 >
                   {show.Title}
