@@ -192,7 +192,7 @@ export default class Details extends Component {
               <p> Release Date: {movie.Year} </p>
               {this.renderElement()}
               {TokenService.getAuthToken() ? (
-                <form onSubmit={e => this.handleUpdateBarkStatus(e)}>
+                <form onSubmit={e => this.handlePostBarkStatus(e)}>
                   <select className='status' name='status'>
                     <option> Yes </option>
                     <option> No </option>
@@ -227,7 +227,7 @@ export default class Details extends Component {
               <p> Release Date: {show.Year} </p>
               {this.renderElement()}
               {TokenService.getAuthToken() ? (
-                <form onSubmit={e => this.handleUpdateBarkStatus(e)}>
+                <form onSubmit={e => this.handlePostBarkStatus(e)}>
                   <select className='status' name='status'>
                     <option> Yes </option>
                     <option> No </option>
