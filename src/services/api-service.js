@@ -102,6 +102,13 @@ export const postBarks = (barks, media_id) => {
       barks,
       media_id,
     }),
+  }).then(res => {
+    if (!res.ok) {
+      throw new Error(
+        'Something went wrong posting to "barks", please try again later'
+      );
+    }
+    return res.json();
   });
 };
 
