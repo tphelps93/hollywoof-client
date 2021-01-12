@@ -1,45 +1,75 @@
 .login {
-    color: white;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
+  color: white;
 }
 
-.login h1 {
-    color: goldenrod;
+.login button {
+  background-color: black;
+  color: white;
+  height: 30px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: bold;
+}
+
+.login-content {
+    padding: 20px;
+}
+
+.login-content h1 {
+  font-family: 'Fjalla One', sans-serif;
+  font-size: 40px;
+}
+
+.login-content h3 {
+  font-size: 20px;
+  font-family: 'Fjalla One', sans-serif;
+}
+
+.login-content {
+  margin-top: 30px;
+  text-align: center;
 }
 
 .login-form {
-    background-color: white;
-    padding: 5px;
-    color: white;
-    align-self: center;
-    height: 30vh;
+  background-color: whitesmoke;
+  width: 70%;
+  height: 215px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 3px;
+  text-align: center;
 }
 
-form {
+.login-form form {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
-form input, form button {
-    align-self: center;
-    padding: 5px;
-    margin: 5px;
+.login-form input {
+    font-family: 'Titillium Web', sans-serif;
+    margin-bottom: 1.6rem;
+    height: 2.8rem;
+    padding-left: 0.8rem;
+    border-radius: 0.4rem;
+    border: none;
 }
 
-@media all and (min-width: 700px) {
+.login-form p {
+    color: black;
+  }
+@media all and (min-width: 768px) {
     .login {
-        flex-direction: row;
+        display: flex;
         justify-content: space-between;
-        margin: 50px;
-    }
-
-    .login-content {
-        width: 30%;
+        margin-top: 250px;
+        padding: 30px;
     }
 
     .login-form {
-        height: 40vh;
+        width: 40%;
+        height: 250px;
     }
 }

@@ -1,50 +1,90 @@
 .register {
-    color: white;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
+  color: white;
 }
 
-.register h1 {
-    color: goldenrod;
+.register button {
+  background-color: black;
+  color: white;
+  height: 30px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: bold;
+}
+
+.register-content {
+  margin-top: 30px;
+  padding: 20px;
+  text-align: center;
+}
+
+.register-content h1 {
+  font-family: 'Fjalla One', sans-serif;
+  font-size: 40px;
+}
+
+.register-content h3 {
+  font-size: 20px;
+  font-family: 'Fjalla One', sans-serif;
+}
+
+.register-content ul {
+  font-family: 'Titillium Web', sans-serif;
+  list-style-type: none;
+  text-align: left;
+}
+
+.register-content li {
+  font-size: 15px;
+  margin-right: 20px;
+}
+
+.register-form p {
+  color: black;
 }
 
 .register-form {
-    background-color: white;
-    padding: 5px;
-    color: white;
-    align-self: center;
-    height: 30vh;
+  background-color: whitesmoke;
+  text-align: center;
+  width: 70%;
+  height: 230px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 3px;
 }
 
-form {
+.register-form form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.register-form input {
+  font-family: 'Titillium Web', sans-serif;
+  margin-bottom: 1.6rem;
+  height: 2.8rem;
+  padding-left: 0.8rem;
+  border-radius: 0.4rem;
+  border: none;
+}
+
+.register-form input {
+  font-family: 'Titillium Web', sans-serif;
+  margin: 5px;
+}
+
+@media all and (min-width: 768px) {
+  .register {
     display: flex;
-    flex-direction: column;
-}
+    justify-content: space-between;
+    margin-top: 250px;
+    padding: 30px;
+    margin-left: 55px;
+  }
 
-form input, form button {
-    align-self: center;
-    padding: 5px;
-    margin: 5px;
-}
-
-ul {
-    list-style-type: none;
-    text-align: left;
-}
-
-@media all and (min-width: 700px) {
-    .register {
-        flex-direction: row;
-        justify-content: space-between;
-        margin: 50px;
-    }
-
-    .register-content {
-        width: 30%;
-    }
-
-    .register-form {
-        height: 40vh;
-    }
+  .register-form {
+    width: 40%;
+    height: 250px;
+  }
 }

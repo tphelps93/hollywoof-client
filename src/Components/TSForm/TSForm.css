@@ -1,0 +1,67 @@
+.ts-form {
+  color: white;
+}
+
+.ts-form form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: whitesmoke;
+  width: 70%;
+  height: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 3px;
+  text-align: center;
+}
+
+.ts-content {
+  text-align: center;
+}
+
+.ts-content h3 {
+  font-size: 20px;
+  font-family: 'Fjalla One', sans-serif;
+}
+
+.ts-form input,
+textarea,
+select {
+  font-family: 'Titillium Web', sans-serif;
+  margin-bottom: 1.6rem;
+  height: 2.8rem;
+  padding-left: 0.8rem;
+  border-radius: 0.4rem;
+  border: none;
+}
+
+.ts-form textarea {
+    resize: vertical;
+}
+
+.ts-form p {
+  color: black;
+}
+
+.ts-form button {
+  background-color: black;
+  color: white;
+  height: 30px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: bold;
+  margin: 5px;
+}
+
+@media all and (min-width: 768px) {
+  .ts-form {
+    margin-top: 250px;
+  }
+
+  .timestamp {
+    width: 40%;
+    height: 280px;
+  }
+}
