@@ -15,6 +15,7 @@
   width: 80px;
   align-self: center;
   margin: 10px;
+  background-color: brown;
 }
 
 .details {
@@ -27,7 +28,7 @@
 }
 
 .comm-container th > p {
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid brown;
   width: 70px;
 }
 
@@ -85,7 +86,7 @@
     display: none;
   }
 
-  .conf-hov {
+  .container tr {
     display: flex;
   }
 

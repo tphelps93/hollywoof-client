@@ -93,7 +93,7 @@ export default class Main extends Component {
             <tr>
               <th>
                 <Link
-                  style={{ textDecoration: 'none', color: 'white' }}
+                  style={{ textDecoration: 'none', color: 'black' }}
                   to={`/details/${movie.imdbID}`}
                 >
                   {movie.Title}
@@ -123,7 +123,7 @@ export default class Main extends Component {
             <tr>
               <th>
                 <Link
-                  style={{ textDecoration: 'none', color: 'white' }}
+                  style={{ textDecoration: 'none', color: 'black' }}
                   to={`/details/${show.imdbID}`}
                 >
                   {show.Title}

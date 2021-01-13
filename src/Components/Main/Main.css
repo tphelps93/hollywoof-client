@@ -41,6 +41,7 @@ select {
   font-weight: bold;
   width: 90px;
   align-self: center;
+  background-color: brown;
 }
 
 .type-title {
@@ -63,7 +64,7 @@ select {
 table {
   border-collapse: collapse;
   border-spacing: 0.5rem;
-  color: white;
+  color: black;
   align-self: center;
   font-family: 'Source Sans Pro', sans-serif;
   border: 3px solid white;
@@ -74,8 +75,8 @@ table caption {
 }
 
 thead th {
-  border: 3px solid white;
-  background-color: white;
+  border: 3px solid brown;
+  background-color: brown;
   color: black;
   text-align: center;
 }
@@ -84,16 +85,18 @@ thead th {
   height: 30px;
   font-size: 16px;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: bold;
   width: 60px;
   align-self: center;
+  background-color: brown;
 }
 
 td,
 th {
-  border: 3px solid white;
+  border: 3px solid brown;
+  background-color: whitesmoke;
   padding: 0.5rem;
   text-align: left;
 }
