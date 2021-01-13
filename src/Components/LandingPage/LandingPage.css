@@ -100,6 +100,10 @@
   background-color: brown;
 }
 
+button:hover {
+  background-color: #06c;
+}
+
 .landing-content h1 {
   font-family: 'Fjalla One', sans-serif;
   font-size: 40px;

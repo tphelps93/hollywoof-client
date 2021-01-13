@@ -59,6 +59,10 @@ select {
   margin: 5px;
 }
 
+.ts-form button:hover {
+  background-color: #06c;
+}
+
 @media all and (min-width: 768px) {
   .ts-form {
     margin-top: 250px;

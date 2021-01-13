@@ -58,30 +58,42 @@ select {
 }
 
 .main-table {
-  margin-top: 20px; 
-}
-
-table {
   border-collapse: collapse;
   border-spacing: 0.5rem;
+  margin: 25px 0;
+  font-size: 1em;
   color: black;
   align-self: center;
   font-family: 'Source Sans Pro', sans-serif;
-  border: 3px solid white;
 }
 
-table caption {
-  margin: 10px;
-}
-
-thead th {
-  border: 3px solid brown;
+table thead tr {
   background-color: brown;
-  color: black;
-  text-align: center;
+  color: white;
+  text-align: left;
+  font-weight: bold;
 }
 
-.main-table button {
+table th,
+table td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+table th:hover {
+  background-color: #06c;
+}
+
+table tbody tr {
+  border-bottom: 1px solid #dddddd;
+  background-color: whitesmoke;
+}
+
+table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+table button {
   height: 30px;
   font-size: 16px;
   border: none;
@@ -91,14 +103,6 @@ thead th {
   width: 60px;
   align-self: center;
   background-color: brown;
-}
-
-td,
-th {
-  border: 3px solid brown;
-  background-color: whitesmoke;
-  padding: 0.5rem;
-  text-align: left;
 }
 
 /* Desktop */

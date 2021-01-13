@@ -28,7 +28,7 @@
 }
 
 .comm-container th > p {
-  border-bottom: 2px solid brown;
+  border-bottom: 2px solid #06c;
   width: 70px;
 }
 
@@ -48,6 +48,7 @@
 
 .detail-table {
   margin-top: -10px;
+  align-self: center;
   table-layout: fixed;
 }
 

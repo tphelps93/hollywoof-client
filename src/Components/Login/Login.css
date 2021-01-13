@@ -13,6 +13,10 @@
   font-weight: bold;
 }
 
+.login button:hover {
+  background-color: #06c;
+}
+
 .login-content {
     padding: 20px;
 }
