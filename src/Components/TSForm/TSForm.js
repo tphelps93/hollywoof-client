@@ -12,9 +12,9 @@ const initial = {
   hour: '',
   minute: '',
   second: '',
-  comment: '',
-  timeError: '',
-  commentError: ''
+  hourError: '',
+  minuteError: '',
+  secondError: '',
 };
 
 export default class TSForm extends Component {
@@ -30,21 +30,27 @@ export default class TSForm extends Component {
   };
 
   validate = () => {
-    let timeError = '';
-    let commentError = '';
+    let hourError = '';
+    let minuteError = '';
+    let secondError = '';
 
-    // Time Validation
-    if (!this.state.time) {
-      timeError = 'Timestamp is required';
+    // Hour Validation
+    if (!this.state.hour) {
+      hourError = 'Hour is required';
     }
 
-    // Comment Error
-    if (!this.state.comment) {
-      commentError = 'Comment is required';
+    // Minute Validation
+    if (!this.state.minute) {
+      minuteError = 'Minute is required';
     }
 
-    if (timeError || commentError) {
-      this.setState({ timeError, commentError });
+    // Second Error
+    if (!this.state.second) {
+      secondError = 'Second is required';
+    }
+
+    if (hourError || minuteError || secondError) {
+      this.setState({ hourError, minuteError, secondError });
       return false;
     }
     return true;
@@ -120,6 +126,9 @@ export default class TSForm extends Component {
               max='12'
               onChange={this.handleChange}
             ></input>
+            <div style={{ color: 'red', fontSize: 15 }}>
+              {this.state.hourError}
+            </div>
             <input
               placeholder='minute (mm)'
               type='number'
@@ -128,6 +137,9 @@ export default class TSForm extends Component {
               max='59'
               onChange={this.handleChange}
             ></input>
+            <div style={{ color: 'red', fontSize: 15 }}>
+              {this.state.minuteError}
+            </div>
             <input
               placeholder='second (ss)'
               type='number'
@@ -136,14 +148,12 @@ export default class TSForm extends Component {
               max='59'
               onChange={this.handleChange}
             ></input>
+            <div style={{ color: 'red', fontSize: 15 }}>
+              {this.state.secondError}
+            </div>
           </div>
-          <div style={{ color: 'red', fontSize: 15 }}>
-            {this.state.timeError}
-          </div>
+
           <textarea placeholder='comment' name='comment'></textarea>
-          <div style={{ color: 'red', fontSize: 15 }}>
-            {this.state.commentError}
-          </div>
           <select name='volume'>
             <option> High </option>
             <option> Medium </option>
