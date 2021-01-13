@@ -43,10 +43,6 @@
   animation-delay: 10s;
 }
 
-/* .gallery .slide:nth-child(3) {
-  animation-delay: 80s;
-} */
-
 .gallery,
 .slide img {
   position: absolute;
@@ -117,6 +113,11 @@
 /* Desktop */
 
 @media all and (min-width: 768px) {
+
+  .landing {
+    max-width: 100%;
+    overflow: hidden;
+  }
   .landing-content button {
     height: 35px;
     font-size: 20px;
