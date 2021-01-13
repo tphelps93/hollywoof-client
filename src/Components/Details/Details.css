@@ -18,6 +18,10 @@
   background-color: brown;
 }
 
+.details-page button:hover {
+  background-color: #06c;
+}
+
 .details {
   padding: 10px;
 }
