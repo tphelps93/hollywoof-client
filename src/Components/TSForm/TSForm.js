@@ -76,8 +76,9 @@ export default class TSForm extends Component {
           <h3> Report A TimeStamp </h3>
         </div>
         <form className='timestamp' onSubmit={e => this.handleTSForm(e)}>
+          <div className='ts-inputs'>
           <input
-            placeholder='hh'
+            placeholder='hour (hh)'
             type='number'
             name='hour'
             min='1'
@@ -85,8 +86,7 @@ export default class TSForm extends Component {
             onChange={this.handleChange}
           ></input>
           <input
-            placeholder='mm'
-
+            placeholder='minute (mm)'
             type='number'
             name='minute'
             min='1'
@@ -94,14 +94,14 @@ export default class TSForm extends Component {
             onChange={this.handleChange}
           ></input>
           <input
-            placeholder='ss'
+            placeholder='second (ss)'
             type='number'
             name='second'
             min='1'
             max='59'
             onChange={this.handleChange}
           ></input>
-
+</div>
           <textarea placeholder='comment' name='comment'></textarea>
           <select name='volume'>
             <option> High </option>

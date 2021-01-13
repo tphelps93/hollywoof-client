@@ -13,6 +13,7 @@ import {
 } from '../../services/api-service';
 import TokenService from '../../services/token-service';
 // CSS Imports
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Details.css';
 
 export default class Details extends Component {
@@ -37,7 +38,8 @@ export default class Details extends Component {
     return (
       <tr key={ts.ts_id} name='comment' className='comm-container'>
         <th>
-          <p>Username</p><h2>{ts.user_name}</h2>
+          <p>Username</p>
+          <h2>{ts.user_name}</h2>
         </th>
         <th>
           <p>Comment</p>
@@ -46,22 +48,28 @@ export default class Details extends Component {
         <th>
           {TokenService.getAuthToken() ? (
             <button onClick={() => this.handleLikeClick(ts.ts_id, ts.likes)}>
-              👍
+              <FontAwesomeIcon icon='thumbs-up' />
+              <span name='likes'>{ts.likes}</span>
             </button>
           ) : (
-            <span>👍</span>
+            <span>
+              <FontAwesomeIcon icon='thumbs-up' />
+              <span name='likes'>{ts.likes}</span>
+            </span>
           )}
-          <span name='likes'>{ts.likes}</span>
           {TokenService.getAuthToken() ? (
             <button
               onClick={() => this.handleDislikeClick(ts.ts_id, ts.dislikes)}
             >
-              👎
+              <FontAwesomeIcon icon='thumbs-down' />
+              <span name='dislikes'> {ts.dislikes} </span>
             </button>
           ) : (
-            <span>👎</span>
+            <span>
+              <FontAwesomeIcon icon='thumbs-down' />{' '}
+              <span name='dislikes'> {ts.dislikes} </span>
+            </span>
           )}
-          <span name='dislikes'> {ts.dislikes} </span>
         </th>
       </tr>
     );
@@ -85,11 +93,10 @@ export default class Details extends Component {
   };
 
   handleClickDeleteTS = ts_id => {
-    deleteTimestamp(ts_id)
-    .then(ts => {
+    deleteTimestamp(ts_id).then(ts => {
       this.context.deleteTS(ts_id);
-    })
-  }
+    });
+  };
 
   handlePostBarkStatus = e => {
     const user_id = TokenService.jwtDecode(TokenService.getAuthToken()).payload
@@ -150,13 +157,21 @@ export default class Details extends Component {
                         this.handleConfirmationClick(ts.ts_id, ts.confirmations)
                       }
                     >
-                      🐾
+                      <FontAwesomeIcon icon='paw' />
+                      <span>{ts.confirmations}</span>
                     </button>
-                  ) : null}
+                  ) : <span>{ts.confirmations}</span>}
 
-                  <span>{ts.confirmations}</span>
-                  {ts.userid == TokenService.jwtDecode(TokenService.getAuthToken()).payload.user_id ? (
-                    <button onClick={() => this.handleClickDeleteTS(ts.ts_id)} className='delete-ts'> Delete </button>
+                  {TokenService.getAuthToken() && ts.userid ==
+                  TokenService.jwtDecode(TokenService.getAuthToken()).payload
+                    .user_id ? (
+                    <button
+                      onClick={() => this.handleClickDeleteTS(ts.ts_id)}
+                      className='delete-ts'
+                    >
+                      {' '}
+                      Delete{' '}
+                    </button>
                   ) : (
                     ''
                   )}

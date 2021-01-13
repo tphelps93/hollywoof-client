@@ -14,6 +14,15 @@
   z-index: -1;
 }
 
+.paw-icon {
+  position: absolute;
+  font-size: 30px;
+  margin-left: -20px;
+  margin-top: -25px;
+  transform: rotate(-30deg);
+  color: brown;
+}
+
 .slide {
   margin-top: 130px;
   position: absolute;
@@ -70,7 +79,7 @@
 }
 
 .line {
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid brown;
   padding-bottom: 5px;
 }
 
@@ -88,6 +97,7 @@
   border-radius: 5px;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: bold;
+  background-color: brown;
 }
 
 .landing-content h1 {
@@ -137,5 +147,11 @@
   .line {
     width: 300px;
     margin-right: 100%;
+  }
+
+  .paw-icon {
+    font-size: 40px;
+    margin-left: -25px;
+    margin-top: -30px;
   }
 }

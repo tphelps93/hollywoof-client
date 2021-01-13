@@ -9,9 +9,11 @@
 }
 
 .header button {
+  color: black;
   height: 30px;
   font-size: 16px;
   border: none;
+  background-color: brown;
   border-radius: 4px;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: bold;

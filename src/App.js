@@ -15,6 +15,7 @@ import Main from './Components/Main/Main';
 import Details from './Components/Details/Details';
 import TSForm from './Components/TSForm/TSForm';
 // CSS Imports
+import '../src/Components/FontAwesomeIcons/store';
 import './App.css';
 
 export default class App extends Component {

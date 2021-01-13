@@ -35,7 +35,6 @@
   margin: 5px;
 }
 
-
 .details h3 {
   font-family: 'Fjalla One', sans-serif;
   font-size: 25px;
@@ -73,19 +72,24 @@
   border: none;
 }
 
-.delete-ts {
-  display: none;
+.container span {
+  margin: 5px;
 }
 
-.conf-hov {
-  display: flex;
-}
-
-.conf-hov:hover .delete-ts {
-  display: block;
-}
 @media all and (min-width: 768px) {
   .movie-info img {
     height: 35vh;
+  }
+
+  .delete-ts {
+    display: none;
+  }
+
+  .conf-hov {
+    display: flex;
+  }
+
+  .conf-hov:hover .delete-ts {
+    display: block;
   }
 }
