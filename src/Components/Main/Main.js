@@ -18,7 +18,6 @@ import './Main.css';
 export default class Main extends Component {
   state = {
     title: '',
-    filter: '',
     page: 1,
     totalResults: 0,
     isSubmitting: false,
@@ -42,7 +41,7 @@ export default class Main extends Component {
         return b.media_id === imdbID;
       })
       .map(b => {
-        element = <th> {b.barks} </th>;
+        return (element = <th> {b.barks} </th>);
       });
     return element;
   };
@@ -178,8 +177,12 @@ export default class Main extends Component {
           <button type='submit'> Submit </button>
         </form>
         <table width='90%' id='table' className='main-table'>
-            <caption className='search-res'>Search Results</caption>
-            <caption className='num-res'> Results: 10 of {this.context.totalResults}</caption>
+          <caption className='search-res'>Search Results</caption>
+          <caption className='num-res'>
+            {' '}
+            Results: {this.state.isSubmitting ? 10 : 0} of{' '}
+            {this.context.totalResults}
+          </caption>
           <thead>
             <tr>
               <th> Title </th>

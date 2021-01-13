@@ -35,12 +35,12 @@ select {
   border: none;
 }
 
-.ts-inputs input{
+.ts-inputs input {
   width: 30%;
 }
 
 .ts-form textarea {
-    resize: vertical;
+  resize: vertical;
 }
 
 .ts-form p {
@@ -59,10 +59,6 @@ select {
   margin: 5px;
 }
 
-.ts-form button:hover {
-  background-color: #06c;
-}
-
 @media all and (min-width: 768px) {
   .ts-form {
     margin-top: 250px;
@@ -71,5 +67,10 @@ select {
   .timestamp {
     width: 40%;
     height: 280px;
+  }
+
+  .ts-form button:hover {
+    background-color: #06c;
+    cursor: pointer;
   }
 }

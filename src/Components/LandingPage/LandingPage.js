@@ -22,9 +22,6 @@ export default class LandingPage extends Component {
               alt='dog'
             ></img>
           </div>
-          {/* <div className='slide'>
-             <img src='https://cdn.wallpapersafari.com/79/29/ujZqez.jpg' alt='dog'></img>
-           </div> */}
         </div>
         <div className='landing-content'>
           <h1>

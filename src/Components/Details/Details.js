@@ -160,11 +160,14 @@ export default class Details extends Component {
                       <FontAwesomeIcon icon='paw' />
                       <span>{ts.confirmations}</span>
                     </button>
-                  ) : <span>{ts.confirmations}</span>}
+                  ) : (
+                    <span>{ts.confirmations}</span>
+                  )}
 
-                  {TokenService.getAuthToken() && ts.userid ==
-                  TokenService.jwtDecode(TokenService.getAuthToken()).payload
-                    .user_id ? (
+                  {TokenService.getAuthToken() &&
+                  ts.userid ==
+                    TokenService.jwtDecode(TokenService.getAuthToken()).payload
+                      .user_id ? (
                     <button
                       onClick={() => this.handleClickDeleteTS(ts.ts_id)}
                       className='delete-ts'
@@ -271,9 +274,11 @@ export default class Details extends Component {
           </thead>
           {renderTimestamps}
         </table>
-        <Link to='/main'>
-          <button className='home-back'> Back </button>
-        </Link>
+        <div className='back-btn'>
+          <Link to='/main'>
+            <button> Back </button>
+          </Link>
+        </div>
       </div>
     );
   }

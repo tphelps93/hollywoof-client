@@ -18,10 +18,6 @@
   background-color: brown;
 }
 
-.details-page button:hover {
-  background-color: #06c;
-}
-
 .details {
   padding: 10px;
 }
@@ -97,5 +93,10 @@
 
   .conf-hov:hover .delete-ts {
     display: block;
+  }
+
+  .details-page button:hover {
+    background-color: #06c;
+    cursor: pointer;
   }
 }

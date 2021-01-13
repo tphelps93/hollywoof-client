@@ -13,10 +13,6 @@
   font-weight: bold;
 }
 
-.register button:hover {
-  background-color: #06c;
-}
-
 .register-content {
   margin-top: 30px;
   padding: 20px;
@@ -52,7 +48,7 @@
   background-color: whitesmoke;
   text-align: center;
   width: 70%;
-  height: 230px;
+  height: 300px;
   margin: 0 auto;
   padding: 20px;
   border-radius: 3px;
@@ -89,6 +85,11 @@
 
   .register-form {
     width: 40%;
-    height: 250px;
+    height: 300px;
+  }
+
+  .register button:hover {
+    background-color: #06c;
+    cursor: pointer;
   }
 }

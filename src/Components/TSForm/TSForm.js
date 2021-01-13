@@ -8,7 +8,17 @@ import TokenService from '../../services/token-service';
 // CSS Imports
 import './TSForm.css';
 
+const initial = {
+  hour: '',
+  minute: '',
+  second: '',
+  comment: '',
+  timeError: '',
+  commentError: ''
+};
+
 export default class TSForm extends Component {
+  state = { initial };
   static contextType = DataContext;
   handleChange = event => {
     const isCheckbox = event.target.type === 'checkbox';
@@ -17,6 +27,27 @@ export default class TSForm extends Component {
         ? event.target.checked
         : event.target.value,
     });
+  };
+
+  validate = () => {
+    let timeError = '';
+    let commentError = '';
+
+    // Time Validation
+    if (!this.state.time) {
+      timeError = 'Timestamp is required';
+    }
+
+    // Comment Error
+    if (!this.state.comment) {
+      commentError = 'Comment is required';
+    }
+
+    if (timeError || commentError) {
+      this.setState({ timeError, commentError });
+      return false;
+    }
+    return true;
   };
 
   combineTimestamps(hour, minute, second) {
@@ -37,36 +68,40 @@ export default class TSForm extends Component {
     const media_id = this.props.match.params.imdbID;
     const userid = TokenService.jwtDecode(TokenService.getAuthToken()).payload
       .user_id;
-    const user_name = TokenService.jwtDecode(TokenService.getAuthToken()).payload.user_name;
 
     const timestamp = this.combineTimestamps(
       hour.value,
       minute.value,
       second.value
     );
-    postTimestamps(
-      timestamp,
-      comment.value,
-      volume.value,
-      confirmations,
-      media_id,
-      userid,
-    )
-      .then(ts => {
-        this.context.addTimestamps(ts);
-      })
-      .then(() => {
-        hour.value = '';
-        minute.value = '';
-        second.value = '';
-        comment.value = '';
-        volume.value = '';
-      })
+    const isValid = this.validate();
+    if (isValid) {
+      postTimestamps(
+        timestamp,
+        comment.value,
+        volume.value,
+        confirmations,
+        media_id,
+        userid
+      )
+        .then(ts => {
+          this.context.addTimestamps(ts);
+        })
+        .then(() => {
+          hour.value = '';
+          minute.value = '';
+          second.value = '';
+          comment.value = '';
+          volume.value = '';
+        })
 
-      .then(() => {
-        this.props.history.push('/main');
-      })
-      .catch(this.context.setError);
+        .then(() => {
+          this.props.history.push('/main');
+        })
+        .catch(res => {
+          this.setState({ initial });
+        });
+    }
   };
 
   render() {
@@ -77,32 +112,38 @@ export default class TSForm extends Component {
         </div>
         <form className='timestamp' onSubmit={e => this.handleTSForm(e)}>
           <div className='ts-inputs'>
-          <input
-            placeholder='hour (hh)'
-            type='number'
-            name='hour'
-            min='1'
-            max='12'
-            onChange={this.handleChange}
-          ></input>
-          <input
-            placeholder='minute (mm)'
-            type='number'
-            name='minute'
-            min='1'
-            max='59'
-            onChange={this.handleChange}
-          ></input>
-          <input
-            placeholder='second (ss)'
-            type='number'
-            name='second'
-            min='1'
-            max='59'
-            onChange={this.handleChange}
-          ></input>
-</div>
+            <input
+              placeholder='hour (hh)'
+              type='number'
+              name='hour'
+              min='1'
+              max='12'
+              onChange={this.handleChange}
+            ></input>
+            <input
+              placeholder='minute (mm)'
+              type='number'
+              name='minute'
+              min='1'
+              max='59'
+              onChange={this.handleChange}
+            ></input>
+            <input
+              placeholder='second (ss)'
+              type='number'
+              name='second'
+              min='1'
+              max='59'
+              onChange={this.handleChange}
+            ></input>
+          </div>
+          <div style={{ color: 'red', fontSize: 15 }}>
+            {this.state.timeError}
+          </div>
           <textarea placeholder='comment' name='comment'></textarea>
+          <div style={{ color: 'red', fontSize: 15 }}>
+            {this.state.commentError}
+          </div>
           <select name='volume'>
             <option> High </option>
             <option> Medium </option>

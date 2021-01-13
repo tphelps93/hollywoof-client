@@ -13,12 +13,8 @@
   font-weight: bold;
 }
 
-.login button:hover {
-  background-color: #06c;
-}
-
 .login-content {
-    padding: 20px;
+  padding: 20px;
 }
 
 .login-content h1 {
@@ -39,7 +35,7 @@
 .login-form {
   background-color: whitesmoke;
   width: 70%;
-  height: 215px;
+  height: 300px;
   margin: 0 auto;
   padding: 20px;
   border-radius: 3px;
@@ -47,33 +43,38 @@
 }
 
 .login-form form {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .login-form input {
-    font-family: 'Titillium Web', sans-serif;
-    margin-bottom: 1.6rem;
-    height: 2.8rem;
-    padding-left: 0.8rem;
-    border-radius: 4px;
-    border: none;
+  font-family: 'Titillium Web', sans-serif;
+  margin-bottom: 1.6rem;
+  height: 2.8rem;
+  padding-left: 0.8rem;
+  border-radius: 4px;
+  border: none;
 }
 
 .login-form p {
-    color: black;
-  }
+  color: black;
+}
 @media all and (min-width: 768px) {
-    .login {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 250px;
-        padding: 30px;
-    }
+  .login {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 250px;
+    padding: 30px;
+  }
 
-    .login-form {
-        width: 40%;
-        height: 250px;
-    }
+  .login-form {
+    width: 40%;
+    height: 300px;
+  }
+
+  .login button:hover {
+    background-color: #06c;
+    cusor: pointer;
+  }
 }

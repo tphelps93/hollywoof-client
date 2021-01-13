@@ -44,10 +44,6 @@ select {
   background-color: brown;
 }
 
-.search button:hover {
-  background-color: #06c;
-}
-
 .type-title {
   display: flex;
   justify-content: center;
@@ -78,14 +74,15 @@ table thead tr {
   font-weight: bold;
 }
 
+table caption {
+  color: white;
+  margin: 5px;
+}
+
 table th,
 table td {
   padding: 12px 15px;
   text-align: left;
-}
-
-tbody th:hover {
-  color: #06c;
 }
 
 table tbody tr {
@@ -111,6 +108,12 @@ table button {
 
 /* Desktop */
 @media all and (min-width: 768px) {
-
-
+  tbody th:hover {
+    color: #06c;
+    cursor: pointer;
+  }
+  .search button:hover {
+    background-color: #06c;
+    cursor: pointer;
+  }
 }

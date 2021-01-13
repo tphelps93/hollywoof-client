@@ -1,12 +1,22 @@
 // Dependency Imports
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 // API Imports
 import { postUser } from '../../services/api-service';
 // CSS Imports
 import './Registration.css';
 
+const initial = {
+  name: '',
+  user_name: '',
+  password: '',
+  nameError: '',
+  usernameError: '',
+  passwordError: '',
+};
+
 export default class Registration extends Component {
+  state = { initial };
   handleChange = event => {
     const isCheckbox = event.target.type === 'checkbox';
     this.setState({
@@ -16,21 +26,55 @@ export default class Registration extends Component {
     });
   };
 
+  validate = () => {
+    let nameError = '';
+    let usernameError = '';
+    let passwordError = '';
+
+    // Name Validation
+    if (!this.state.name) {
+      nameError = 'Name is required.';
+    }
+
+    // Username Error
+    if (!this.state.user_name) {
+      usernameError = 'Username is required.';
+    }
+
+    // Password Validation
+    if (!this.state.password) {
+      passwordError = 'Password is required.';
+    }
+
+    if (nameError || usernameError || passwordError) {
+      this.setState({ nameError, usernameError, passwordError });
+      return false;
+    }
+    return true;
+  };
+
   handleSubmit = e => {
     e.preventDefault();
+    this.setState({ error: null });
     const { name } = e.target;
     const { user_name } = e.target;
     const { password } = e.target;
-    postUser(name.value, user_name.value, password.value)
-      .then(() => {
-        name.value = '';
-        user_name.value = '';
-        password.value = '';
-      })
-      .then(() => {
-        this.props.history.push('/main');
-      })
-      .catch(this.context.setError);
+    const isValid = this.validate();
+    if (isValid) {
+      postUser(name.value, user_name.value, password.value)
+        .then(() => {
+          name.value = '';
+          user_name.value = '';
+          password.value = '';
+        })
+        .then(() => {
+          this.props.history.push('/main');
+        })
+        // clear form
+        .catch(res => {
+          this.setState({ initial });
+        });
+    }
   };
   render() {
     return (
@@ -56,6 +100,9 @@ export default class Registration extends Component {
               name='name'
               placeholder='name'
             ></input>
+            <div style={{ color: 'red', fontSize: 15 }}>
+              {this.state.nameError}
+            </div>
 
             <input
               onChange={this.handleChange}
@@ -63,14 +110,26 @@ export default class Registration extends Component {
               name='user_name'
               placeholder='username'
             ></input>
+            <div style={{ color: 'red', fontSize: 15 }}>
+              {this.state.usernameError}
+            </div>
             <input
               onChange={this.handleChange}
               name='password'
               type='password'
               placeholder='password'
             ></input>
+            <div style={{ color: 'red', fontSize: 15 }}>
+              {this.state.passwordError}
+            </div>
             <button type='submit'> Submit </button>
-            <p> Already registered? <Link style={{textDecoration:'none'}} to='/login'><a> Login Here </a> </Link></p>
+            <p>
+              {' '}
+              Already registered?{' '}
+              <Link style={{ textDecoration: 'none' }} to='/login'>
+                Login Here
+              </Link>
+            </p>
           </form>
         </div>
       </div>

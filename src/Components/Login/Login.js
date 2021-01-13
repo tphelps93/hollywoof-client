@@ -54,9 +54,9 @@ export default class Login extends Component {
                 placeholder='password'
               ></input>
             <button type='submit'> Submit </button>
-            <p> Don't have an account? <Link style={{textDecoration:'none'}} to='/register'><a> Register Here </a> </Link></p>
+            <p> Don't have an account? <Link style={{textDecoration:'none'}} to='/register'> Register Here </Link></p>
 
-            <div style={{ color: 'red', fontSize: 10 }}>{this.state.error}</div>
+            <div style={{ color: 'red', fontSize: 15 }}>{this.state.error}</div>
           </form>
         </div>
       </div>

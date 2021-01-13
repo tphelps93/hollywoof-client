@@ -109,14 +109,13 @@ export default class App extends Component {
 
   updateMovieTotalResults = totalResults => {
     this.setState({
-      totalResults: this.state.movies,
-      totalResults,
+      totalResults: (this.state.movies, totalResults),
     });
   };
 
   updateShowsTotalResults = totalResults => {
     this.setState({
-      totalResults: (this.state.shows.totalResults = totalResults),
+      totalResults: (this.state.shows, totalResults),
     });
   };
 

@@ -58,7 +58,7 @@
 @keyframes slider {
   0% {
     opacity: 0;
-    transform: translateX(0px)
+    transform: translateX(0px);
   }
   25% {
     opacity: 0;
@@ -100,10 +100,6 @@
   background-color: brown;
 }
 
-button:hover {
-  background-color: #06c;
-}
-
 .landing-content h1 {
   font-family: 'Fjalla One', sans-serif;
   font-size: 40px;
@@ -117,7 +113,6 @@ button:hover {
 .landing-content p {
   font-family: 'Titillium Web', sans-serif;
 }
-
 
 /* Desktop */
 
@@ -157,5 +152,9 @@ button:hover {
     font-size: 40px;
     margin-left: -25px;
     margin-top: -30px;
+  }
+  button:hover {
+    background-color: #06c;
+    cursor: pointer;
   }
 }
