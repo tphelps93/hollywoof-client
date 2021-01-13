@@ -24,7 +24,7 @@
 }
 
 .slide {
-  margin-top: 180px;
+  margin-top: 210px;
   position: absolute;
   top: 0;
   left: 0;
@@ -125,7 +125,7 @@
   }
 
   .landing-content {
-    margin-top: 260px;
+    margin-top: 300px;
     margin-left: 3%;
     text-align: left;
     width: 100%;
