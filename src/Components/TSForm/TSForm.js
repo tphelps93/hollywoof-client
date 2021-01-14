@@ -122,7 +122,7 @@ export default class TSForm extends Component {
               placeholder='hour (hh)'
               type='number'
               name='hour'
-              min='1'
+              min='0'
               max='12'
               onChange={this.handleChange}
             ></input>
@@ -133,7 +133,7 @@ export default class TSForm extends Component {
               placeholder='minute (mm)'
               type='number'
               name='minute'
-              min='1'
+              min='0'
               max='59'
               onChange={this.handleChange}
             ></input>
@@ -160,9 +160,11 @@ export default class TSForm extends Component {
             <option> Low </option>
           </select>
           <button> Submit </button>
-          <Link to='/main'>
-            <button> Back </button>
-          </Link>
+          <div>
+            <Link to='/main'>
+              <button> Back </button>
+            </Link>
+          </div>
         </form>
       </div>
     );
