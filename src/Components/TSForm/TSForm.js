@@ -117,6 +117,7 @@ export default class TSForm extends Component {
           <h3> Report A TimeStamp </h3>
         </div>
         <form className='timestamp' onSubmit={e => this.handleTSForm(e)}>
+          <label htmlFor='hour'> TimeStamp </label>
           <div className='ts-inputs'>
             <input
               placeholder='hour (hh)'

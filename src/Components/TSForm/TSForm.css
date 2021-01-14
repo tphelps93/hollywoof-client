@@ -2,13 +2,19 @@
   color: white;
 }
 
+.ts-form label {
+  color: black;
+  margin: 5px;
+  font-family: 'Titillium Web', sans-serif;
+}
+
 .ts-form form {
   display: flex;
   flex-direction: column;
   width: 100%;
   background-color: whitesmoke;
   width: 70%;
-  height: 400px;
+  height: 430px;
   margin: 0 auto;
   padding: 20px;
   border-radius: 3px;
@@ -25,7 +31,6 @@
 }
 
 .ts-form input,
-textarea,
 select {
   font-family: 'Titillium Web', sans-serif;
   margin-bottom: 1.6rem;
@@ -41,6 +46,11 @@ select {
 
 .ts-form textarea {
   resize: vertical;
+  font-family: 'Titillium Web', sans-serif;
+  margin-bottom: 1.6rem;
+  padding-left: 0.8rem;
+  border-radius: 0.4rem;
+  border: none;
 }
 
 .ts-form p {
