@@ -27,6 +27,8 @@ export default class Registration extends Component {
   };
 
   validate = () => {
+    const REGEX_UPPER_LOWER_NUMBER_SPECIAL = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&])[\S]/;
+
     let nameError = '';
     let usernameError = '';
     let passwordError = '';
@@ -44,6 +46,26 @@ export default class Registration extends Component {
     // Password Validation
     if (!this.state.password) {
       passwordError = 'Password is required.';
+    }
+
+    if (this.state.password.length <= 8) {
+      passwordError = 'Password must be longer than 8 characters.';
+    }
+
+    if (this.state.password.length > 20) {
+      passwordError = 'Password must not be longer than 20 characters.';
+    }
+
+    if (
+      this.state.password.startsWith(' ') ||
+      this.state.password.endsWith(' ')
+    ) {
+      passwordError = 'Password must not start or end with empty spaces,';
+    }
+
+    if (!REGEX_UPPER_LOWER_NUMBER_SPECIAL.test(this.state.password)) {
+      passwordError =
+        'Password must contain 1 upper case, lower case, number and special character.';
     }
 
     if (nameError || usernameError || passwordError) {
